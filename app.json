@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "find-my-shop-react-app",
-    "slug": "find-my-shop-react-app",
+    "name": "find-my-shop-react-native",
+    "slug": "find-my-shop-react-native",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
