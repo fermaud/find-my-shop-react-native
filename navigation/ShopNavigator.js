@@ -1,9 +1,6 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import {
-  createDrawerNavigator,
-  DrawerItemList,
-} from "@react-navigation/drawer";
+import { createDrawerNavigator, DrawerItemList } from "@react-navigation/drawer";
 import { Platform, SafeAreaView, Button, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useDispatch } from "react-redux";
@@ -36,37 +33,27 @@ import Colors from "../constants/Colors";
 
 const defaultNavOptions = {
   headerStyle: {
-    backgroundColor: Platform.OS === "android" ? Colors.primary : "",
+    backgroundColor: Platform.OS === "android" ? Colors.primary : ""
   },
   headerTitleStyle: {
-    fontFamily: "open-sans-bold",
+    fontFamily: "open-sans-bold"
   },
   headerBackTitleStyle: {
-    fontFamily: "open-sans",
+    fontFamily: "open-sans"
   },
-  headerTintColor: Platform.OS === "android" ? "white" : Colors.primary,
+  headerTintColor: Platform.OS === "android" ? "white" : Colors.primary
 };
 
-const ProductsStackNavigator = createStackNavigator();
+const ShopStackNavigator = createStackNavigator();
 
-export const ProductsNavigator = () => {
+export const ShopNavigator = () => {
   return (
-    <ProductsStackNavigator.Navigator screenOptions={defaultNavOptions}>
-      <ProductsStackNavigator.Screen
+    <ShopStackNavigator.Navigator screenOptions={defaultNavOptions}>
+      <ShopStackNavigator.Screen
         name="ProductsOverview"
         component={HomeScreen}
         // options={productsOverviewScreenOptions}
       />
-      {/* <ProductsStackNavigator.Screen
-        name="ProductDetail"
-        component={ProductDetailScreen}
-        options={productDetailScreenOptions}
-      />
-      <ProductsStackNavigator.Screen
-        name="Cart"
-        component={CartScreen}
-        options={cartScreenOptions}
-      /> */}
-    </ProductsStackNavigator.Navigator>
+    </ShopStackNavigator.Navigator>
   );
 };

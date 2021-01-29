@@ -13,21 +13,21 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     // justifyContent: 'center',
-    alignItems: "center",
+    alignItems: "center"
   },
   title: {
-    fontFamily: "roboto",
+    fontFamily: "open-sans",
     fontSize: 22,
     margin: 20,
-    textAlign: "center",
+    textAlign: "center"
   },
   filterContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     width: "80%",
-    marginVertical: 15,
-  },
+    marginVertical: 15
+  }
 });
 
 export default HomeScreen;
