@@ -52,7 +52,7 @@ export const ShopNavigator = () => {
       <ShopStackNavigator.Screen
         name="HomePage"
         component={HomeScreen}
-        // options={defaultNavOptions}
+        // options={productsOverviewScreenOptions}
       />
     </ShopStackNavigator.Navigator>
   );
