@@ -50,9 +50,9 @@ export const ShopNavigator = () => {
   return (
     <ShopStackNavigator.Navigator screenOptions={defaultNavOptions}>
       <ShopStackNavigator.Screen
-        name="ProductsOverview"
+        name="HomePage"
         component={HomeScreen}
-        // options={productsOverviewScreenOptions}
+        // options={defaultNavOptions}
       />
     </ShopStackNavigator.Navigator>
   );
