@@ -9,19 +9,19 @@ import { Ionicons } from "@expo/vector-icons";
 
 import FeedScreen, {
   screenOptions as feedScreenOptions,
-} from "../screens/FeedScreen";
+} from "../screens/users/FeedScreen";
 
 import SearchScreen, {
   screenOptions as searchScreenOptions,
-} from "../screens/SearchScreen";
+} from "../screens/search/SearchScreen";
 
 import MapScreen, {
   screenOptions as mapScreenOptions,
-} from "../screens/MapScreen";
+} from "../screens/map/MapScreen";
 
 import FavoritesScreen, {
   screenOptions as favoritesScreenOptions,
-} from "../screens/FavoritesScreen";
+} from "../screens/users/FavoritesScreen";
 
 import UserProfileScreen, {
   screenOptions as userProfileScreenOptions,
