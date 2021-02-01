@@ -1,7 +1,7 @@
 import React from "react";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 
-import { GeneralNavigator } from "./ShopNavigator";
+import { GeneralNavigator, AuthNavigator } from "./ShopNavigator";
 import Colors from "../constants/Colors";
 
 const GeneralTheme = {
@@ -10,14 +10,17 @@ const GeneralTheme = {
     ...DefaultTheme.colors,
     background: "white",
     primary: Colors.primary,
-    border: "white"
-  }
+    border: "#E5E5E5",
+  },
 };
 
 const AppNavigator = (props) => {
+  const isAuth = true;
+
   return (
     <NavigationContainer theme={GeneralTheme}>
-      <GeneralNavigator />
+      {isAuth && <GeneralNavigator />}
+      {!isAuth && <AuthNavigator />}
     </NavigationContainer>
   );
 };
