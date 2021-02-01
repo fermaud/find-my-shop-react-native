@@ -3,6 +3,7 @@
     "name": "find-my-shop-react-native",
     "slug": "find-my-shop-react-native",
     "version": "1.0.0",
+    "owner": "findmyshop",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -17,13 +18,15 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.fermaud.find-my-shop-react-native"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.fermaud.findmyshopreactnative"
     },
     "web": {
       "favicon": "./assets/favicon.png"
