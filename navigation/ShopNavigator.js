@@ -13,6 +13,7 @@ import MapScreen, { screenOptions as mapScreenOptions } from "../screens/map/Map
 import FavoritesScreen, { screenOptions as favoritesScreenOptions } from "../screens/users/FavoritesScreen";
 import UserProfileScreen, { screenOptions as userProfileScreenOptions } from "../screens/users/UserProfileScreen";
 import ArticleDetailsScreen, { screenOptions as articleDetailsScreenOptions } from "../screens/articles/ArticleDetailsScreen";
+import ShopDetailsScreen, { screenOptions as shopDetailsScreenOptions } from "../screens/shops/ShopDetailsScreen";
 
 import Colors from "../constants/Colors";
 // import * as authActions from "../store/actions/auth";
@@ -22,8 +23,9 @@ const defaultNavOptions = {
     height: 100
   },
   headerTitleStyle: {
-    fontFamily: "open-sans-bold",
-    fontSize: 25
+    // fontFamily: "open-sans",
+    fontWeight: "500",
+    fontSize: 20
   },
   headerBackTitleStyle: {
     fontFamily: "open-sans"
@@ -40,6 +42,7 @@ export const FeedNavigator = () => {
     <FeedStackNavigator.Navigator screenOptions={defaultNavOptions}>
       <FeedStackNavigator.Screen name="Feed" component={FeedScreen} options={feedScreenOptions} />
       <FeedStackNavigator.Screen name="ArticleDetails" component={ArticleDetailsScreen} options={articleDetailsScreenOptions} />
+      <FeedStackNavigator.Screen name="ShopDetails" component={ShopDetailsScreen} options={shopDetailsScreenOptions} />
     </FeedStackNavigator.Navigator>
   );
 };

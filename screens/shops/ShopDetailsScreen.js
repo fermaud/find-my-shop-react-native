@@ -1,18 +1,17 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableWithoutFeedback, ImageBackground } from "react-native";
-import { ImageHeaderScrollView, TriggeringView } from "react-native-image-header-scroll-view";
+import { View, Text, StyleSheet, ImageBackground, TouchableWithoutFeedback } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 
-const ArticleDetailsScreen = (props) => {
-  const article = props.route.params;
+const ShopDetailsScreen = (props) => {
+  const shop = props.route.params;
   return (
     <ScrollView>
       <View style={styles.screen}>
         <View style={styles.imageContainer}>
           <ImageBackground
             resizeMethod={"auto"}
-            source={{ uri: article.articleImageUrl }}
+            source={{ uri: shop.shopImageUrl }}
             style={styles.image}
             imageStyle={{
               resizeMode: "cover",
@@ -28,7 +27,7 @@ const ArticleDetailsScreen = (props) => {
           </ImageBackground>
         </View>
         <View style={styles.details}>
-          <Text style={styles.title}>{article.articleTitle}</Text>
+          <Text style={styles.title}>{shop.shopTitle}</Text>
         </View>
       </View>
     </ScrollView>
@@ -44,7 +43,7 @@ export const screenOptions = (navData) => {
 const styles = StyleSheet.create({
   imageContainer: {
     width: "100%",
-    height: 400,
+    height: 280,
     overflow: "hidden"
   },
   image: {
@@ -66,4 +65,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ArticleDetailsScreen;
+export default ShopDetailsScreen;

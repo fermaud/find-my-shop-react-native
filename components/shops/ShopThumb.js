@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Platform, TouchableOpacity, Image, TouchableNativeFeedback } from "react-native";
 
-const ArticleThumb = (props) => {
+const ShopThumb = (props) => {
   let TouchableCmp = TouchableOpacity;
 
   if (Platform.OS === "android" && Platform.Version >= 21) {
@@ -18,8 +18,7 @@ const ArticleThumb = (props) => {
             <Text numberOfLines={1} style={styles.title}>
               {props.title}
             </Text>
-            <Text>{props.shopName}</Text>
-            <Text style={styles.price}>{props.price}€</Text>
+            <Text>{props.city}</Text>
           </View>
         </View>
       </TouchableCmp>
@@ -30,12 +29,12 @@ const ArticleThumb = (props) => {
 const styles = StyleSheet.create({
   article: {
     height: 250,
-    width: 150,
+    width: 250,
     marginRight: 10
   },
   container: {},
   imageContainer: {
-    width: 150,
+    width: 250,
     height: 150,
     borderRadius: 7,
     overflow: "hidden"
@@ -53,4 +52,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ArticleThumb;
+export default ShopThumb;

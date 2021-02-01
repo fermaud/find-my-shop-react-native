@@ -2,6 +2,7 @@ import React from "react";
 import { View, ScrollView, Text, StyleSheet } from "react-native";
 
 import ArticleHorizontalGrid from "../../components/articles/ArticleHorizontalGrid";
+import ShopHorizontalGrid from "../../components/shops/ShopHorizontalGrid";
 import SectionTitle from "../../components/UI/SectionTitle";
 
 const FeedScreen = (props) => {
@@ -29,6 +30,27 @@ const FeedScreen = (props) => {
     }
   ];
 
+  const shops = [
+    {
+      id: "1",
+      title: "Adidas Store",
+      imageUrl: "https://find-my-shop-public-assets.s3.eu-west-3.amazonaws.com/default-banner.jpg",
+      city: "Fontaines sur saone"
+    },
+    {
+      id: "2",
+      title: "Converse Shop",
+      imageUrl: "https://find-my-shop.s3.eu-west-3.amazonaws.com/storage/stores/5fb66b9c297f8f19eec5c998/assets/1612187397614_cover.png",
+      city: "Lyon Bellecour"
+    },
+    {
+      id: "3",
+      title: "Nike Store",
+      imageUrl: "https://find-my-shop.s3.eu-west-3.amazonaws.com/storage/stores/5fb66b9c297f8f19eec5c998/assets/1612187397614_cover.png",
+      city: "St Germain au mont d'or"
+    }
+  ];
+
   const renderItem = ({ item }) => <Text>{item.title}</Text>;
 
   const selectArticleHandler = (id, title, imageUrl) => {
@@ -36,6 +58,14 @@ const FeedScreen = (props) => {
       articleId: id,
       articleTitle: title,
       articleImageUrl: imageUrl
+    });
+  };
+
+  const selectShopHandler = (id, title, imageUrl) => {
+    props.navigation.navigate("ShopDetails", {
+      shopId: id,
+      shopTitle: title,
+      shopImageUrl: imageUrl
     });
   };
 
@@ -50,6 +80,12 @@ const FeedScreen = (props) => {
           }}
         />
         <SectionTitle style={{ marginBottom: 15 }}>Shop tendances</SectionTitle>
+        <ShopHorizontalGrid
+          shops={shops}
+          onSelect={(id, title, imageUrl) => {
+            selectShopHandler(id, title, imageUrl);
+          }}
+        />
       </View>
     </ScrollView>
   );
