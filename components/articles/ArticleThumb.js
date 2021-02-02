@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Platform,
-  TouchableWithoutFeedback,
-  Image,
-  TouchableNativeFeedback,
-} from "react-native";
+import { View, Text, StyleSheet, Platform, TouchableWithoutFeedback, Image, TouchableNativeFeedback } from "react-native";
 
 const ArticleThumb = (props) => {
   let TouchableCmp = TouchableWithoutFeedback;
@@ -15,8 +7,9 @@ const ArticleThumb = (props) => {
   if (Platform.OS === "android" && Platform.Version >= 21) {
     TouchableCmp = TouchableNativeFeedback;
   }
+  console.log({ ...styles.article, ...props.thumbStyle });
   return (
-    <View style={styles.article}>
+    <View style={{ ...styles.article, ...props.thumbStyle }}>
       <TouchableCmp onPress={props.onSelect} useForeground>
         <View>
           <View style={styles.imageContainer}>
@@ -39,26 +32,25 @@ const styles = StyleSheet.create({
   article: {
     height: 220,
     width: 150,
-    marginRight: 10,
+    marginRight: 10
   },
-  container: {},
   imageContainer: {
-    width: 150,
+    width: "100%",
     height: 150,
     // borderRadius: 7,
-    overflow: "hidden",
+    overflow: "hidden"
   },
   image: {
     width: "100%",
-    height: "100%",
+    height: "100%"
   },
   details: {
-    paddingTop: 5,
+    paddingTop: 5
   },
   title: {},
   price: {
-    fontWeight: "bold",
-  },
+    fontWeight: "bold"
+  }
 });
 
 export default ArticleThumb;

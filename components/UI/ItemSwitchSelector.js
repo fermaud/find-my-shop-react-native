@@ -6,14 +6,14 @@ const ItemSwitchSelector = (props) => {
   const Item = (props) => {
     if (props.isSelected) {
       return (
-        <View style={styles.selectedItem}>
+        <View style={{ ...styles.item, ...styles.selectedItem }}>
           <Text style={styles.textSelected}>{props.title}</Text>
         </View>
       );
     } else {
       return (
         <TouchableWithoutFeedback onPress={props.selectItem}>
-          <View style={styles.unselectedItem}>
+          <View style={styles.item}>
             <Text style={styles.textUnselected}>{props.title}</Text>
           </View>
         </TouchableWithoutFeedback>
@@ -53,21 +53,15 @@ const styles = StyleSheet.create({
     backgroundColor: "#f6f6f6",
     color: "#333"
   },
-  selectedItem: {
-    borderRadius: 100,
-    alignItems: "center",
-    justifyContent: "center",
-    flex: 1,
-    height: 45,
-    backgroundColor: "white"
-  },
-  unselectedItem: {
+  item: {
     borderRadius: 100,
     alignItems: "center",
     justifyContent: "center",
     flex: 1,
     height: 45
-    // backgroundColor: "white"
+  },
+  selectedItem: {
+    backgroundColor: "white"
   },
   textSelected: {
     color: Colors.primary,

@@ -1,7 +1,7 @@
 import React from "react";
 import { View, ScrollView, Text, StyleSheet } from "react-native";
 
-import ArticleHorizontalGrid from "../../components/articles/ArticleHorizontalGrid";
+import ArticleGrid from "../../components/articles/ArticleGrid";
 import ShopHorizontalGrid from "../../components/shops/ShopHorizontalGrid";
 import SectionTitle from "../../components/UI/SectionTitle";
 
@@ -73,7 +73,8 @@ const FeedScreen = (props) => {
     <ScrollView>
       <View style={styles.screen}>
         <SectionTitle style={{ marginBottom: 15, marginTop: 15 }}>Articles suggérés pour vous</SectionTitle>
-        <ArticleHorizontalGrid
+        <ArticleGrid
+          horizontal={true}
           articles={articles}
           selectItem={(id, title, imageUrl) => {
             selectArticleHandler(id, title, imageUrl);
@@ -87,7 +88,8 @@ const FeedScreen = (props) => {
           }}
         />
         <SectionTitle style={{ marginBottom: 15, marginTop: 15 }}>Articles tendances</SectionTitle>
-        <ArticleHorizontalGrid
+        <ArticleGrid
+          horizontal={true}
           articles={articles}
           selectItem={(id, title, imageUrl) => {
             selectArticleHandler(id, title, imageUrl);
@@ -104,7 +106,7 @@ export const screenOptions = {
 
 const styles = StyleSheet.create({
   screen: {
-    paddingHorizontal: 10
+    marginHorizontal: 10
   }
 });
 

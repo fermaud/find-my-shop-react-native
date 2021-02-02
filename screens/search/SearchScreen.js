@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { View, StyleSheet, SafeAreaView, Text, FlatList } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
 
 import CustomSearchRounded from "../../components/UI/CustomSearchRounded";
 import ItemSwitchSelector from "../../components/UI/ItemSwitchSelector";
@@ -107,11 +106,11 @@ export const screenOptions = (navData) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    marginHorizontal: 10
   },
   screen: {
-    marginTop: 20,
-    paddingHorizontal: 20
+    marginTop: 20
   },
   itemText: {
     fontSize: 16,

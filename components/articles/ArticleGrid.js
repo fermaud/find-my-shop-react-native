@@ -3,14 +3,17 @@ import { FlatList, StyleSheet } from "react-native";
 
 import ArticleThumb from "./ArticleThumb";
 
-const ArticleHorizontalGrid = (props) => {
+const ArticleGrid = (props) => {
   return (
     <FlatList
-      horizontal={true}
+      // numColumns={2}
+      pagingEnabled={true}
+      horizontal={props.horizontal}
       showsHorizontalScrollIndicator={false}
       data={props.articles}
       renderItem={(itemData) => (
         <ArticleThumb
+          thumbStyle={props.thumbStyle}
           title={itemData.item.title}
           imageUrl={itemData.item.imageUrl}
           price={itemData.item.price}
@@ -27,4 +30,4 @@ const ArticleHorizontalGrid = (props) => {
 
 const styles = StyleSheet.create({});
 
-export default ArticleHorizontalGrid;
+export default ArticleGrid;

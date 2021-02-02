@@ -70,6 +70,8 @@ export const SearchNavigator = () => {
     <SearchStackNavigator.Navigator screenOptions={defaultNavOptions}>
       <SearchStackNavigator.Screen name="Search" component={SearchScreen} options={searchScreenOptions} />
       <SearchStackNavigator.Screen name="SearchArticleResult" component={SearchArticleResultScreen} options={searchArticleResultScreenOptions} />
+      <FeedStackNavigator.Screen name="ArticleDetails" component={ArticleDetailsScreen} options={articleDetailsScreenOptions} />
+      <FeedStackNavigator.Screen name="ShopDetails" component={ShopDetailsScreen} options={shopDetailsScreenOptions} />
     </SearchStackNavigator.Navigator>
   );
 };
