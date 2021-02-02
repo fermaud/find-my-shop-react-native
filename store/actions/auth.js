@@ -1,10 +1,5 @@
-// export const TOGGLE_FAVORITE = 'TOGGLE_FAVORITE';
-// export const SET_FILTERS = 'SET_FILTERS';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-// export const toggleFavorite = (id) => {
-//     return { type: TOGGLE_FAVORITE, mealId: id };
-// };
-
-// export const setFilters = (filtersSettings) => {
-//     return { type: SET_FILTERS, filters: filtersSettings };
-// };
+export const AUTHENTICATE = "AUTHENTICATE";
+export const LOGOUT = "LOGOUT";
+// export const SET_DID_TRY_AL = 'SET_DID_TRY_AL';

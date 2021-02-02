@@ -1,12 +1,6 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  ImageBackground,
-} from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import { View, Text, StyleSheet, TouchableWithoutFeedback, ImageBackground, ScrollView } from "react-native";
+
 import { Ionicons } from "@expo/vector-icons";
 
 const ArticleDetailsScreen = (props) => {
@@ -21,26 +15,14 @@ const ArticleDetailsScreen = (props) => {
             style={styles.image}
             imageStyle={{
               resizeMode: "cover",
-              alignSelf: "flex-end",
+              alignSelf: "flex-end"
             }}
           >
             <View style={styles.headerButtonContainer}>
-              <TouchableWithoutFeedback
-                onPress={() => props.navigation.goBack()}
-              >
-                <Ionicons
-                  style={styles.backButton}
-                  name="ios-arrow-back-outline"
-                  size={40}
-                  color="white"
-                />
+              <TouchableWithoutFeedback onPress={() => props.navigation.goBack()}>
+                <Ionicons style={styles.backButton} name="ios-arrow-back-outline" size={40} color="white" />
               </TouchableWithoutFeedback>
-              <Ionicons
-                style={styles.backButton}
-                name="ios-heart-outline"
-                size={40}
-                color="white"
-              />
+              <Ionicons style={styles.backButton} name="ios-heart-outline" size={40} color="white" />
             </View>
           </ImageBackground>
         </View>
@@ -54,7 +36,7 @@ const ArticleDetailsScreen = (props) => {
 
 export const screenOptions = (navData) => {
   return {
-    headerShown: false,
+    headerShown: false
   };
 };
 
@@ -62,25 +44,25 @@ const styles = StyleSheet.create({
   imageContainer: {
     width: "100%",
     height: 400,
-    overflow: "hidden",
+    overflow: "hidden"
   },
   image: {
     width: "100%",
-    height: "100%",
+    height: "100%"
   },
   details: {
-    padding: 10,
+    padding: 10
   },
   title: {
-    fontSize: 20,
+    fontSize: 20
   },
   headerButtonContainer: {
     marginTop: 50,
     width: "95%",
     flexDirection: "row",
     justifyContent: "space-between",
-    alignSelf: "center",
-  },
+    alignSelf: "center"
+  }
 });
 
 export default ArticleDetailsScreen;

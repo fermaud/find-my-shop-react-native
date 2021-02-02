@@ -10,51 +10,45 @@ const FeedScreen = (props) => {
     {
       id: "1",
       title: "jean SUper avec un title mega longf",
-      imageUrl:
-        "https://find-my-shop.s3.eu-west-3.amazonaws.com/storage/articles/5fd38a5464b9b7f1513a6e68/1607699069048_img.png",
+      imageUrl: "https://find-my-shop.s3.eu-west-3.amazonaws.com/storage/articles/5fd38a5464b9b7f1513a6e68/1607699069048_img.png",
       price: 19.99,
-      shopName: "Adidas Store",
+      shopName: "Adidas Store"
     },
     {
       id: "2",
       title: "tee shirt blanc",
-      imageUrl:
-        "https://find-my-shop.s3.eu-west-3.amazonaws.com/storage/articles/5fd38a5464b9b7f1513a6e68/1607699069048_img.png",
+      imageUrl: "https://find-my-shop.s3.eu-west-3.amazonaws.com/storage/articles/5fd38a5464b9b7f1513a6e68/1607699069048_img.png",
       price: 29.99,
-      shopName: "Nike Store",
+      shopName: "Nike Store"
     },
     {
       id: "3",
       title: "Pantalon rouge",
-      imageUrl:
-        "https://find-my-shop.s3.eu-west-3.amazonaws.com/storage/articles/5fd38a5464b9b7f1513a6e68/1607699069048_img.png",
+      imageUrl: "https://find-my-shop.s3.eu-west-3.amazonaws.com/storage/articles/5fd38a5464b9b7f1513a6e68/1607699069048_img.png",
       price: 49.99,
-      shopName: "Converse",
-    },
+      shopName: "Converse"
+    }
   ];
 
   const shops = [
     {
       id: "1",
       title: "Adidas Store",
-      imageUrl:
-        "https://find-my-shop-public-assets.s3.eu-west-3.amazonaws.com/default-banner.jpg",
-      city: "Fontaines sur saone",
+      imageUrl: "https://find-my-shop-public-assets.s3.eu-west-3.amazonaws.com/default-banner.jpg",
+      city: "Fontaines sur saone"
     },
     {
       id: "2",
       title: "Converse Shop",
-      imageUrl:
-        "https://find-my-shop.s3.eu-west-3.amazonaws.com/storage/stores/5fb66b9c297f8f19eec5c998/assets/1612187397614_cover.png",
-      city: "Lyon Bellecour",
+      imageUrl: "https://find-my-shop.s3.eu-west-3.amazonaws.com/storage/stores/5fb66b9c297f8f19eec5c998/assets/1612187397614_cover.png",
+      city: "Lyon Bellecour"
     },
     {
       id: "3",
       title: "Nike Store",
-      imageUrl:
-        "https://find-my-shop.s3.eu-west-3.amazonaws.com/storage/stores/5fb66b9c297f8f19eec5c998/assets/1612187397614_cover.png",
-      city: "St Germain au mont d'or",
-    },
+      imageUrl: "https://find-my-shop.s3.eu-west-3.amazonaws.com/storage/stores/5fb66b9c297f8f19eec5c998/assets/1612187397614_cover.png",
+      city: "St Germain au mont d'or"
+    }
   ];
 
   const renderItem = ({ item }) => <Text>{item.title}</Text>;
@@ -63,7 +57,7 @@ const FeedScreen = (props) => {
     props.navigation.navigate("ArticleDetails", {
       articleId: id,
       articleTitle: title,
-      articleImageUrl: imageUrl,
+      articleImageUrl: imageUrl
     });
   };
 
@@ -71,37 +65,31 @@ const FeedScreen = (props) => {
     props.navigation.navigate("ShopDetails", {
       shopId: id,
       shopTitle: title,
-      shopImageUrl: imageUrl,
+      shopImageUrl: imageUrl
     });
   };
 
   return (
     <ScrollView>
       <View style={styles.screen}>
-        <SectionTitle style={{ marginBottom: 15, marginTop: 15 }}>
-          Articles suggérés pour vous
-        </SectionTitle>
+        <SectionTitle style={{ marginBottom: 15, marginTop: 15 }}>Articles suggérés pour vous</SectionTitle>
         <ArticleHorizontalGrid
           articles={articles}
-          onSelect={(id, title, imageUrl) => {
+          selectItem={(id, title, imageUrl) => {
             selectArticleHandler(id, title, imageUrl);
           }}
         />
-        <SectionTitle style={{ marginBottom: 15, marginTop: 15 }}>
-          Shop tendances
-        </SectionTitle>
+        <SectionTitle style={{ marginBottom: 15, marginTop: 15 }}>Shop tendances</SectionTitle>
         <ShopHorizontalGrid
           shops={shops}
-          onSelect={(id, title, imageUrl) => {
+          selectItem={(id, title, imageUrl) => {
             selectShopHandler(id, title, imageUrl);
           }}
         />
-        <SectionTitle style={{ marginBottom: 15, marginTop: 15 }}>
-          Articles tendances
-        </SectionTitle>
+        <SectionTitle style={{ marginBottom: 15, marginTop: 15 }}>Articles tendances</SectionTitle>
         <ArticleHorizontalGrid
           articles={articles}
-          onSelect={(id, title, imageUrl) => {
+          selectItem={(id, title, imageUrl) => {
             selectArticleHandler(id, title, imageUrl);
           }}
         />
@@ -111,13 +99,13 @@ const FeedScreen = (props) => {
 };
 
 export const screenOptions = {
-  headerTitle: "Fil d'actu",
+  headerTitle: "Fil d'actu"
 };
 
 const styles = StyleSheet.create({
   screen: {
-    paddingHorizontal: 10,
-  },
+    paddingHorizontal: 10
+  }
 });
 
 export default FeedScreen;

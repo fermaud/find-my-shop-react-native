@@ -15,7 +15,7 @@ const ShopHorizontalGrid = (props) => {
           imageUrl={itemData.item.imageUrl}
           city={itemData.item.city}
           onSelect={() => {
-            props.onSelect(itemData.item.id, itemData.item.title, itemData.item.imageUrl);
+            props.selectItem(itemData.item.id, itemData.item.title, itemData.item.imageUrl);
           }}
         />
       )}

@@ -11,14 +11,13 @@ const GeneralTheme = {
     ...DefaultTheme.colors,
     background: "white",
     primary: Colors.primary,
-    border: "#E5E5E5",
-  },
+    border: "#E5E5E5"
+  }
 };
 
 const AppNavigator = (props) => {
-  // const isAuth = true;
-  const isAuth = useSelector((state) => !!state.auth.token);
-  console.log(isAuth);
+  // const isAuth = useSelector((state) => !!state.auth.token);
+  const isAuth = true;
   return (
     <NavigationContainer theme={GeneralTheme}>
       {isAuth && <GeneralNavigator />}
