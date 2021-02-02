@@ -1,5 +1,6 @@
 import React from "react";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
+import { useSelector } from "react-redux";
 
 import { GeneralNavigator, AuthNavigator } from "./ShopNavigator";
 import Colors from "../constants/Colors";
@@ -15,8 +16,9 @@ const GeneralTheme = {
 };
 
 const AppNavigator = (props) => {
-  const isAuth = true;
-
+  // const isAuth = true;
+  const isAuth = useSelector((state) => !!state.auth.token);
+  console.log(isAuth);
   return (
     <NavigationContainer theme={GeneralTheme}>
       {isAuth && <GeneralNavigator />}
