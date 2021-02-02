@@ -9,41 +9,38 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-import ArticleGrid from "../../components/articles/ArticleGrid";
+import ShopGrid from "../../components/shops/ShopGrid";
 import CustomSearchRounded from "../../components/UI/CustomSearchRounded";
 import FilterItem from "../../components/UI/FilterItem";
 
-const SearchArticleResultScreen = (props) => {
+const SearchShopResultScreen = (props) => {
   const [searchQuery, setSearchQuery] = useState(
     props.route.params.searchQuery
   );
   const categoryId = props.route.params.categoryId;
   const categoryTitle = props.route.params.categoryTitle;
 
-  const articles = [
+  const shops = [
     {
       id: "1",
-      title: "jean SUper avec un title mega longf",
+      title: "Adidas Store",
       imageUrl:
-        "https://find-my-shop.s3.eu-west-3.amazonaws.com/storage/articles/5fd38a5464b9b7f1513a6e68/1607699069048_img.png",
-      price: 19.99,
-      shopName: "Adidas Store",
+        "https://find-my-shop-public-assets.s3.eu-west-3.amazonaws.com/default-banner.jpg",
+      city: "Fontaines sur saone",
     },
     {
       id: "2",
-      title: "tee shirt blanc",
+      title: "Converse Shop",
       imageUrl:
-        "https://find-my-shop.s3.eu-west-3.amazonaws.com/storage/articles/5fd38a5464b9b7f1513a6e68/1607699069048_img.png",
-      price: 29.99,
-      shopName: "Nike Store",
+        "https://find-my-shop.s3.eu-west-3.amazonaws.com/storage/stores/5fb66b9c297f8f19eec5c998/assets/1612187397614_cover.png",
+      city: "Lyon Bellecour",
     },
     {
       id: "3",
-      title: "Pantalon rouge",
+      title: "Nike Store",
       imageUrl:
-        "https://find-my-shop.s3.eu-west-3.amazonaws.com/storage/articles/5fd38a5464b9b7f1513a6e68/1607699069048_img.png",
-      price: 49.99,
-      shopName: "Converse",
+        "https://find-my-shop.s3.eu-west-3.amazonaws.com/storage/stores/5fb66b9c297f8f19eec5c998/assets/1612187397614_cover.png",
+      city: "St Germain au mont d'or",
     },
   ];
 
@@ -55,11 +52,11 @@ const SearchArticleResultScreen = (props) => {
     { id: "f5", title: "Shop", isSelected: false },
   ];
 
-  const selectArticleHandler = (id, title, imageUrl) => {
-    props.navigation.navigate("ArticleDetails", {
-      articleId: id,
-      articleTitle: title,
-      articleImageUrl: imageUrl,
+  const selectShopHandler = (id, title, imageUrl) => {
+    props.navigation.navigate("ShopDetails", {
+      shopId: id,
+      shopTitle: title,
+      shopImageUrl: imageUrl,
     });
   };
 
@@ -76,7 +73,7 @@ const SearchArticleResultScreen = (props) => {
             placeholder={
               categoryId
                 ? 'Recherchez dans "' + categoryTitle + '"'
-                : "Recherchez un article"
+                : "Recherchez un shop"
             }
             value={searchQuery}
             onChangeText={(text) => setSearchQuery(text)}
@@ -108,12 +105,11 @@ const SearchArticleResultScreen = (props) => {
       </View>
       <View style={{ flex: 1 }}>
         <Text style={styles.resultsNbr}>244 résultats</Text>
-        <ArticleGrid
-          numColumns={2}
-          articleStyle={styles.articleThumbStyle}
-          articles={articles}
+        <ShopGrid
+          shopStyle={styles.shopThumbStyle}
+          shops={shops}
           selectItem={(id, title, imageUrl) => {
-            selectArticleHandler(id, title, imageUrl);
+            selectShopHandler(id, title, imageUrl);
           }}
         />
       </View>
@@ -141,10 +137,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#727272",
   },
-  articleThumbStyle: {
-    flex: 1 / 2,
-    height: 350,
-    marginBottom: 10,
+  shopThumbStyle: {
+    marginHorizontal: 0,
+    flex: 1,
+    width: "100%",
+    height: 250,
+    marginBottom: 3,
   },
   resultsNbr: {
     marginTop: 20,
@@ -155,4 +153,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SearchArticleResultScreen;
+export default SearchShopResultScreen;

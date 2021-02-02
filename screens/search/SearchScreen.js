@@ -13,21 +13,25 @@ const SearchScreen = (props) => {
     { id: "c1", title: "Tous" },
     { id: "c2", title: "Femme" },
     { id: "c3", title: "Homme" },
-    { id: "c4", title: "Enfant" }
+    { id: "c4", title: "Enfant" },
   ];
 
   const storeCategories = [
     { id: "c1", title: "Tous" },
     { id: "c2", title: "StreetWear" },
     { id: "c3", title: "Sport" },
-    { id: "c4", title: "Ville" }
+    { id: "c4", title: "Ville" },
   ];
 
-  const startSearch = (searchQueryParams, categoryIdParams, categoryTitleParams) => {
+  const startSearch = (
+    searchQueryParams,
+    categoryIdParams,
+    categoryTitleParams
+  ) => {
     const params = {
       searchQuery: searchQueryParams,
       categoryId: categoryIdParams,
-      categoryTitle: categoryTitleParams
+      categoryTitle: categoryTitleParams,
     };
 
     if (switchValue === "Article") {
@@ -39,7 +43,10 @@ const SearchScreen = (props) => {
 
   const CategoryItem = (itemData) => {
     return (
-      <SearchPlaceHolderItem style={{ marginTop: 5 }} selectItem={itemData.selectItem}>
+      <SearchPlaceHolderItem
+        style={{ marginTop: 5 }}
+        selectItem={itemData.selectItem}
+      >
         <Text numberOfLines={1} style={styles.itemText}>
           {itemData.categoryTitle}
         </Text>
@@ -47,8 +54,8 @@ const SearchScreen = (props) => {
     );
   };
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.screen}>
+    <SafeAreaView style={styles.screen}>
+      <View style={styles.container}>
         <CustomSearchRounded
           placeholder={"Recherchez un " + switchValue.toLocaleLowerCase()}
           onChangeText={(text) => setSearchQuery(text)}
@@ -73,14 +80,17 @@ const SearchScreen = (props) => {
             }}
           >
             <Text numberOfLines={1} style={styles.itemText}>
-              Rechercher "{searchQuery}" dans <Text style={{ color: "#E47747" }}>{switchValue}</Text>
+              Rechercher "{searchQuery}" dans{" "}
+              <Text style={{ color: "#E47747" }}>{switchValue}</Text>
             </Text>
           </SearchPlaceHolderItem>
         )}
         {searchQuery.length === 0 && (
           <FlatList
             style={{ height: "100%" }}
-            data={switchValue === "Article" ? articlesCategories : storeCategories}
+            data={
+              switchValue === "Article" ? articlesCategories : storeCategories
+            }
             keyExtractor={(item) => item.id}
             renderItem={(itemData) => (
               <CategoryItem
@@ -100,23 +110,22 @@ const SearchScreen = (props) => {
 
 export const screenOptions = (navData) => {
   return {
-    headerShown: false
+    headerShown: false,
   };
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginHorizontal: 10
-  },
   screen: {
-    marginTop: 20
+    marginHorizontal: 10,
+  },
+  container: {
+    marginTop: 20,
   },
   itemText: {
     fontSize: 16,
     fontWeight: "500",
-    color: "#727272"
-  }
+    color: "#727272",
+  },
 });
 
 export default SearchScreen;

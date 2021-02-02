@@ -6,20 +6,24 @@ import ArticleThumb from "./ArticleThumb";
 const ArticleGrid = (props) => {
   return (
     <FlatList
-      // numColumns={2}
-      pagingEnabled={true}
+      numColumns={props.numColumns}
       horizontal={props.horizontal}
       showsHorizontalScrollIndicator={false}
+      showsVerticalScrollIndicator={false}
       data={props.articles}
       renderItem={(itemData) => (
         <ArticleThumb
-          thumbStyle={props.thumbStyle}
+          articleStyle={props.articleStyle}
           title={itemData.item.title}
           imageUrl={itemData.item.imageUrl}
           price={itemData.item.price}
           shopName={itemData.item.shopName}
           onSelect={() => {
-            props.selectItem(itemData.item.id, itemData.item.title, itemData.item.imageUrl);
+            props.selectItem(
+              itemData.item.id,
+              itemData.item.title,
+              itemData.item.imageUrl
+            );
           }}
         />
       )}

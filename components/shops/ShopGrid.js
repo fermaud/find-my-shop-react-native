@@ -6,16 +6,23 @@ import ShopThumb from "./ShopThumb";
 const ShopHorizontalGrid = (props) => {
   return (
     <FlatList
-      horizontal={true}
+      numColumns={props.numColumns}
+      horizontal={props.horizontal}
       showsHorizontalScrollIndicator={false}
+      showsVerticalScrollIndicator={false}
       data={props.shops}
       renderItem={(itemData) => (
         <ShopThumb
+          shopStyle={props.shopStyle}
           title={itemData.item.title}
           imageUrl={itemData.item.imageUrl}
           city={itemData.item.city}
           onSelect={() => {
-            props.selectItem(itemData.item.id, itemData.item.title, itemData.item.imageUrl);
+            props.selectItem(
+              itemData.item.id,
+              itemData.item.title,
+              itemData.item.imageUrl
+            );
           }}
         />
       )}

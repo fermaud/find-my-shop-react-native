@@ -16,45 +16,38 @@ const ShopThumb = (props) => {
     TouchableCmp = TouchableNativeFeedback;
   }
   return (
-    <View style={styles.article}>
-      <TouchableCmp onPress={props.onSelect} useForeground>
-        <View>
-          <View style={styles.imageContainer}>
-            <Image style={styles.image} source={{ uri: props.imageUrl }} />
-          </View>
-          <View style={styles.details}>
-            <Text numberOfLines={1} style={styles.title}>
-              {props.title}
-            </Text>
-            <Text>{props.city}</Text>
-          </View>
+    <TouchableCmp onPress={props.onSelect}>
+      <View style={{ ...styles.shop, ...props.shopStyle }}>
+        <View style={{ flex: 1 }}>
+          <Image style={styles.image} source={{ uri: props.imageUrl }} />
         </View>
-      </TouchableCmp>
-    </View>
+        <View style={styles.details}>
+          <Text numberOfLines={1} style={styles.title}>
+            {props.title}
+          </Text>
+          <Text>{props.city}</Text>
+        </View>
+      </View>
+    </TouchableCmp>
   );
 };
 
 const styles = StyleSheet.create({
-  article: {
+  shop: {
+    flex: 1,
+    flexDirection: "column",
     height: 200,
     width: 250,
-    marginRight: 10,
-  },
-  container: {},
-  imageContainer: {
-    width: 250,
-    height: 150,
-    // borderRadius: 7,
-    overflow: "hidden",
+    marginHorizontal: 4,
   },
   image: {
     width: "100%",
     height: "100%",
   },
   details: {
+    height: 60,
     paddingTop: 5,
   },
-  title: {},
   price: {
     fontWeight: "bold",
   },
