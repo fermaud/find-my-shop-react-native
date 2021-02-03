@@ -6,14 +6,12 @@ import {
   TouchableWithoutFeedback,
   ScrollView,
   Image,
-  TextInput,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import Colors from "../../constants/Colors";
 
 import SearchPlaceHolderItem from "../../components/UI/SearchPlaceHolderItem";
 
-const EditProfileScreen = (props) => {
+const UserParametersScreen = (props) => {
   return (
     <View style={styles.screen}>
       <View style={styles.headerContainer}>
@@ -29,7 +27,7 @@ const EditProfileScreen = (props) => {
             </TouchableWithoutFeedback>
           </View>
           <View style={{ flex: 4 }}>
-            <Text style={styles.title}>Modifier mon profil</Text>
+            <Text style={styles.title}>Paramètres</Text>
           </View>
           <View style={{ flex: 1 }}></View>
         </View>
@@ -50,11 +48,27 @@ const EditProfileScreen = (props) => {
                 paddingVertical: 5,
                 paddingHorizontal: 10,
                 flexDirection: "column",
-                justifyContent: "center",
+                justifyContent: "space-between",
               }}
             >
-              <Text style={{ fontSize: 15 }}>Change ma photo de profil</Text>
+              <Text style={{ fontSize: 15, fontWeight: "500" }}>
+                Robin Fermaud
+              </Text>
+              <Text style={{ fontSize: 15, color: "#727272" }}>
+                Modifier mon profil
+              </Text>
             </View>
+          </View>
+        </SearchPlaceHolderItem>
+        <SearchPlaceHolderItem style={{ marginTop: 5 }}>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <Ionicons
+              style={styles.settingsButton}
+              name="notifications-outline"
+              size={30}
+              color="black"
+            />
+            <Text style={{ fontSize: 17, paddingLeft: 10 }}>Notifications</Text>
           </View>
         </SearchPlaceHolderItem>
       </ScrollView>
@@ -105,4 +119,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EditProfileScreen;
+export default UserParametersScreen;

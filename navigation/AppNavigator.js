@@ -11,8 +11,8 @@ const GeneralTheme = {
     ...DefaultTheme.colors,
     background: "white",
     primary: Colors.primary,
-    border: "#E5E5E5"
-  }
+    border: "#E5E5E5",
+  },
 };
 
 const AppNavigator = (props) => {

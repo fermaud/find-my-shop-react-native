@@ -11,7 +11,7 @@ const filterList = [
   { id: "f2", title: "Favoris", isSelected: true },
   { id: "f3", title: "Catégories", isSelected: false },
   { id: "f4", title: "Marque", isSelected: false },
-  { id: "f5", title: "Ouvert", isSelected: false }
+  { id: "f5", title: "Ouvert", isSelected: false },
 ];
 
 const MapScreen = (props) => {
@@ -20,25 +20,25 @@ const MapScreen = (props) => {
     latitude: 45.7663955,
     longitude: 4.8355592,
     latitudeDelta: 0.1,
-    longitudeDelta: 0.1
+    longitudeDelta: 0.1,
   });
   const [shopLocations, setShopLocations] = useState([
     {
       title: "Converse Shop Lyon",
       coordinates: {
         latitude: 45.7663,
-        longitude: 4.8355
+        longitude: 4.8355,
       },
-      description: "dzedze"
+      description: "dzedze",
     },
     {
       title: "Nike Store",
       coordinates: {
         latitude: 45.7667,
-        longitude: 4.8467
+        longitude: 4.8467,
       },
-      description: "dzedez"
-    }
+      description: "dzedez",
+    },
   ]);
 
   return (
@@ -78,7 +78,11 @@ const MapScreen = (props) => {
             showsUserLocation={true}
           >
             {shopLocations.map((shop, index) => (
-              <Marker key={index} coordinate={shop.coordinates} onPress={() => console.log(shop)}>
+              <Marker
+                key={index}
+                coordinate={shop.coordinates}
+                onPress={() => console.log(shop)}
+              >
                 <View style={styles.markerStyle}>
                   {/* <Text style={{ color: "white" }}>Shop</Text> */}
                   <Ionicons name="home-outline" size={25} color="black" />
@@ -98,30 +102,29 @@ const MapScreen = (props) => {
 };
 
 export const screenOptions = {
-  headerTitle: "Carte des shops"
+  headerTitle: "Carte des shops",
 };
 
 const styles = StyleSheet.create({
   screen: {
-    flex: 1
+    flex: 1,
   },
   searchContainer: {
     marginHorizontal: 10,
-    marginTop: 15,
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
   },
   locationButtonContainer: {
     marginLeft: 4,
     width: 32,
-    alignItems: "center"
+    alignItems: "center",
   },
   mapContainer: {
-    marginTop: 15
+    marginTop: 15,
   },
   map: {
     width: Dimensions.get("window").width,
-    height: "100%"
+    height: "100%",
   },
   markerStyle: {
     // backgroundColor: "black",
@@ -134,8 +137,8 @@ const styles = StyleSheet.create({
     height: 100,
     alignItems: "center",
     flex: 1,
-    backgroundColor: "white"
-  }
+    backgroundColor: "white",
+  },
 });
 
 export default MapScreen;

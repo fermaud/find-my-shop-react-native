@@ -1,23 +1,41 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { View, StyleSheet, SafeAreaView, Text, FlatList } from "react-native";
+
+import CustomSearchRounded from "../../components/UI/CustomSearchRounded";
+import ItemSwitchSelector from "../../components/UI/ItemSwitchSelector";
+import SearchPlaceHolderItem from "../../components/UI/SearchPlaceHolderItem";
 
 const FavoritesScreen = (props) => {
+  const [switchValue, setSwitchValue] = useState("Article");
+
   return (
-    <View style={styles.screen}>
-      <Text>Favorites Screen</Text>
-    </View>
+    <SafeAreaView style={styles.screen}>
+      <View style={styles.container}>
+        <ItemSwitchSelector
+          leftTitle="Article"
+          rightTitle="Shop"
+          selectedItem={switchValue}
+          selectItem={(value) => {
+            setSwitchValue(value);
+          }}
+        />
+      </View>
+    </SafeAreaView>
   );
 };
 
-export const screenOptions = {
-  headerTitle: "Mes favoris",
+export const screenOptions = (navData) => {
+  return {
+    headerTitle: "Mes favoris",
+  };
 };
 
 const styles = StyleSheet.create({
   screen: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    marginHorizontal: 10,
+  },
+  container: {
+    marginTop: 15,
   },
 });
 
