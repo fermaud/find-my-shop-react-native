@@ -9,7 +9,9 @@ const CustomSearchRounded = (props) => {
       placeholder={props.placeholder}
       onChangeText={props.onChangeText}
       value={props.value}
+      clearButtonMode="always"
       onSubmitEditing={props.onStartSearch}
+      keyboardAppearance="light"
     />
   );
 };
