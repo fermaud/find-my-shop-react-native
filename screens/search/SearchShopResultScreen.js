@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, StyleSheet, SafeAreaView, TouchableWithoutFeedback, FlatList, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useSelector } from "react-redux";
 
 import ShopGrid from "../../components/shops/ShopGrid";
 import CustomSearchRounded from "../../components/UI/CustomSearchRounded";
@@ -11,26 +12,7 @@ const SearchShopResultScreen = (props) => {
   const categoryId = props.route.params.categoryId;
   const categoryTitle = props.route.params.categoryTitle;
 
-  const shops = [
-    {
-      id: "1",
-      title: "Adidas Store",
-      imageUrl: "https://find-my-shop-public-assets.s3.eu-west-3.amazonaws.com/default-banner.jpg",
-      city: "Fontaines sur saone"
-    },
-    {
-      id: "2",
-      title: "Converse Shop",
-      imageUrl: "https://find-my-shop.s3.eu-west-3.amazonaws.com/storage/stores/5fb66b9c297f8f19eec5c998/assets/1612187397614_cover.png",
-      city: "Lyon Bellecour"
-    },
-    {
-      id: "3",
-      title: "Nike Store",
-      imageUrl: "https://find-my-shop.s3.eu-west-3.amazonaws.com/storage/stores/5fb66b9c297f8f19eec5c998/assets/1612187397614_cover.png",
-      city: "St Germain au mont d'or"
-    }
-  ];
+  const shops = useSelector((state) => state.shops.shops);
 
   const filterList = [
     { id: "f1", title: "Filter", isSelected: false },

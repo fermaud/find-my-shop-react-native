@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { View, StyleSheet, SafeAreaView, TouchableWithoutFeedback, FlatList, Text } from "react-native";
+import { View, StyleSheet, SafeAreaView, TouchableWithoutFeedback, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useSelector } from "react-redux";
 
 import ArticleGrid from "../../components/articles/ArticleGrid";
 import CustomSearchRounded from "../../components/UI/CustomSearchRounded";
@@ -11,29 +12,7 @@ const SearchArticleResultScreen = (props) => {
   const categoryId = props.route.params.categoryId;
   const categoryTitle = props.route.params.categoryTitle;
 
-  const articles = [
-    {
-      id: "1",
-      title: "jean SUper avec un title mega longf",
-      imageUrl: "https://find-my-shop.s3.eu-west-3.amazonaws.com/storage/articles/5fd38a5464b9b7f1513a6e68/1607699069048_img.png",
-      price: 19.99,
-      shopName: "Adidas Store"
-    },
-    {
-      id: "2",
-      title: "tee shirt blanc",
-      imageUrl: "https://find-my-shop.s3.eu-west-3.amazonaws.com/storage/articles/5fd38a5464b9b7f1513a6e68/1607699069048_img.png",
-      price: 29.99,
-      shopName: "Nike Store"
-    },
-    {
-      id: "3",
-      title: "Pantalon rouge",
-      imageUrl: "https://find-my-shop.s3.eu-west-3.amazonaws.com/storage/articles/5fd38a5464b9b7f1513a6e68/1607699069048_img.png",
-      price: 49.99,
-      shopName: "Converse"
-    }
-  ];
+  const articles = useSelector((state) => state.articles.articles);
 
   const filterList = [
     { id: "f1", title: "Filter", isSelected: false },
