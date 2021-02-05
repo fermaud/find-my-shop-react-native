@@ -53,20 +53,13 @@ const ArticleDetailsScreen = (props) => {
                 />
               </View>
               <View style={styles.storeInfosContainer}>
-                <Text style={{ fontSize: 18, fontWeight: "500" }}>Addidas Store</Text>
+                <Text style={{ fontSize: 18, fontWeight: "500" }}>{article.shopName}</Text>
                 <Text style={{ fontSize: 18, color: "#727272", fontWeight: "500" }}>Lyon 6</Text>
               </View>
             </View>
           </SearchPlaceHolderItem>
-          <View style={{ flexDirection: "row", justifyContent: "space-between", paddingVertical: 10 }}>
-            <View>
-              <Text style={{ fontWeight: "500", fontSize: 18 }}>{article.title}</Text>
-              <Text style={{ fontWeight: "500", fontSize: 18, paddingTop: 10, color: "#07C807" }}>Dispo en magasin</Text>
-            </View>
-            <View>
-              <Text style={{ fontWeight: "500", fontSize: 18 }}>Addidas</Text>
-            </View>
-          </View>
+          <Text style={{ fontWeight: "500", fontSize: 18, paddingTop: 10 }}>{article.title}</Text>
+          <Text style={{ fontWeight: "500", fontSize: 18, paddingTop: 10, color: "#07C807" }}>Dispo en magasin</Text>
           <Text style={styles.description} numberOfLines={4}>
             {article.description}
           </Text>
@@ -128,7 +121,8 @@ const styles = StyleSheet.create({
     borderWidth: 3
   },
   description: {
-    fontSize: 16
+    fontSize: 16,
+    paddingTop: 15
   }
 });
 

@@ -13,7 +13,7 @@ export const ARTICLES = [
   ),
   new Article(
     "a2",
-    "FLEXI RUNNER - Baskets basses",
+    "FLEXI RUNNER - Baskets basses dzedze zd zede",
     "https://find-my-shop.s3.eu-west-3.amazonaws.com/storage/articles/5fd38a5464b9b7f1513a6e68/1607699069048_img.png",
     "29.98",
     "Adidas Shop",
