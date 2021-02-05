@@ -1,31 +1,32 @@
-import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  ScrollView,
-  Image,
-  TextInput,
-} from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, TouchableWithoutFeedback, ScrollView, Image } from "react-native";
+import * as ImagePicker from "expo-image-picker";
 import { Ionicons } from "@expo/vector-icons";
-import Colors from "../../constants/Colors";
 
 import SearchPlaceHolderItem from "../../components/UI/SearchPlaceHolderItem";
 
 const EditProfileScreen = (props) => {
+  const [image, setImage] = useState("https://find-my-shop-public-assets.s3.eu-west-3.amazonaws.com/user.png");
+
+  const pickImage = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1
+    });
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
+
   return (
     <View style={styles.screen}>
       <View style={styles.headerContainer}>
         <View style={styles.titleLogo}>
           <View style={{ flex: 1 }}>
             <TouchableWithoutFeedback onPress={() => props.navigation.goBack()}>
-              <Ionicons
-                style={styles.settingsButton}
-                name="ios-arrow-back-outline"
-                size={35}
-                color="black"
-              />
+              <Ionicons style={styles.settingsButton} name="ios-arrow-back-outline" size={35} color="black" />
             </TouchableWithoutFeedback>
           </View>
           <View style={{ flex: 4 }}>
@@ -35,22 +36,15 @@ const EditProfileScreen = (props) => {
         </View>
       </View>
       <ScrollView style={{ paddingHorizontal: 10, flex: 1 }}>
-        <SearchPlaceHolderItem
-          selectItem={() => {
-            props.navigation.navigate("EditProfile");
-          }}
-        >
+        <SearchPlaceHolderItem selectItem={pickImage}>
           <View style={{ flexDirection: "row" }}>
-            <Image
-              style={styles.profilePicture}
-              source={require("../../assets/images/profile.jpg")}
-            />
+            <Image style={styles.profilePicture} source={{ uri: image }} />
             <View
               style={{
                 paddingVertical: 5,
                 paddingHorizontal: 10,
                 flexDirection: "column",
-                justifyContent: "center",
+                justifyContent: "center"
               }}
             >
               <Text style={{ fontSize: 15 }}>Change ma photo de profil</Text>
@@ -64,33 +58,32 @@ const EditProfileScreen = (props) => {
 
 export const screenOptions = (navData) => {
   return {
-    headerShown: false,
+    headerShown: false
   };
 };
 
 const styles = StyleSheet.create({
   screen: {
-    flex: 1,
+    flex: 1
   },
   headerContainer: {
     paddingTop: 50,
-    height: 100,
+    height: 100
   },
   titleLogo: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: "row"
   },
   title: {
     fontWeight: "600",
     fontSize: 25,
     paddingTop: 3,
-    textAlign: "center",
+    textAlign: "center"
   },
   settingsButton: {
-    alignSelf: "center",
+    alignSelf: "center"
   },
   profilePicture: {
-    backgroundColor: "blue",
     width: 50,
     height: 50,
     borderRadius: 100,
@@ -98,11 +91,11 @@ const styles = StyleSheet.create({
     borderWidth: 4,
     shadowOffset: {
       width: 0,
-      height: 0,
+      height: 0
     },
     shadowOpacity: 0.4,
-    shadowColor: "grey",
-  },
+    shadowColor: "grey"
+  }
 });
 
 export default EditProfileScreen;

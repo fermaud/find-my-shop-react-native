@@ -12,17 +12,13 @@ const FeedScreen = (props) => {
 
   const selectArticleHandler = (id, title, imageUrl) => {
     props.navigation.navigate("ArticleDetails", {
-      articleId: id,
-      articleTitle: title,
-      articleImageUrl: imageUrl
+      articleId: id
     });
   };
 
   const selectShopHandler = (id, title, imageUrl) => {
     props.navigation.navigate("ShopDetails", {
-      shopId: id,
-      shopTitle: title,
-      shopImageUrl: imageUrl
+      shopId: id
     });
   };
 

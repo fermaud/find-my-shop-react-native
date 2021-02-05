@@ -2,7 +2,7 @@ import React from "react";
 import { View, StyleSheet, ImageBackground, Image, Text } from "react-native";
 
 import SectionTitle from "../../components/UI/SectionTitle";
-import LoginButton from "../../components/UI/LoginButton";
+import CustomButton from "../../components/UI/CustomButton";
 import Colors from "../../constants/Colors";
 
 const LoginScreen = (props) => {
@@ -17,9 +17,9 @@ const LoginScreen = (props) => {
       </View>
       <View style={styles.formContainer}>
         <SectionTitle style={{ marginTop: 15, textAlign: "center", color: "#5A5A5A" }}>Trouvez les meilleurs shops et articles en exclusivité autour de vous !</SectionTitle>
-        <View style={styles.buttonContainer}>
-          <LoginButton onPress={() => console.log("Register")} style={styles.subscribeButtonStyle} textStyle={{ color: "white", fontSize: 17 }} title="S'inscrire sur FindMyShop"></LoginButton>
-          <LoginButton onPress={() => console.log("Login")} style={styles.loginButtonStyle} textStyle={{ color: "#E47747", fontSize: 17 }} title="J'ai déjà un compte"></LoginButton>
+        <View>
+          <CustomButton onPress={() => console.log("Register")} style={styles.subscribeButtonStyle} textStyle={{ color: "white", fontSize: 17 }} title="S'inscrire sur FindMyShop" />
+          <CustomButton onPress={() => console.log("Login")} style={styles.loginButtonStyle} textStyle={{ color: "#E47747", fontSize: 17 }} title="J'ai déjà un compte" />
         </View>
       </View>
       <Text style={styles.about}>À propos de FindMyShop</Text>
