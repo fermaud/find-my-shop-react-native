@@ -1,34 +1,40 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, ScrollView, StyleSheet } from "react-native";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import ArticleGrid from "../../components/articles/ArticleGrid";
 import ShopGrid from "../../components/shops/ShopGrid";
 import SectionTitle from "../../components/UI/SectionTitle";
+import * as articlesActions from "../../store/actions/articles";
 
 const FeedScreen = (props) => {
-  const articles = useSelector((state) => state.articles.articles);
+  const suggestedArticles = useSelector((state) => state.articles.suggestedArticles);
   const shops = useSelector((state) => state.shops.shops);
 
-  const selectArticleHandler = (id, title, imageUrl) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(articlesActions.fetchSuggestedArticles());
+  }, [dispatch]);
+
+  const selectArticleHandler = (id) => {
     props.navigation.navigate("ArticleDetails", {
       articleId: id
     });
   };
 
-  const selectShopHandler = (id, title, imageUrl) => {
+  const selectShopHandler = (id) => {
     props.navigation.navigate("ShopDetails", {
       shopId: id
     });
   };
 
   return (
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.screen}>
         <SectionTitle style={{ marginBottom: 15, marginTop: 15 }}>Articles suggérés pour vous</SectionTitle>
         <ArticleGrid
           horizontal={true}
-          articles={articles}
+          articles={suggestedArticles}
           selectItem={(id, title, imageUrl) => {
             selectArticleHandler(id, title, imageUrl);
           }}
@@ -44,7 +50,7 @@ const FeedScreen = (props) => {
         <SectionTitle style={{ marginBottom: 15, marginTop: 15 }}>Articles tendances</SectionTitle>
         <ArticleGrid
           horizontal={true}
-          articles={articles}
+          articles={suggestedArticles}
           selectItem={(id, title, imageUrl) => {
             selectArticleHandler(id, title, imageUrl);
           }}

@@ -1,18 +1,56 @@
-import React from "react";
-import { View, Text, StyleSheet, TouchableWithoutFeedback, ImageBackground, ScrollView, Image } from "react-native";
+import React, { useState, useEffect, useCallback } from "react";
+import { View, Text, StyleSheet, TouchableWithoutFeedback, ImageBackground, ScrollView, Image, ActivityIndicator, Button, RefreshControl } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import SearchPlaceHolderItem from "../../components/UI/SearchPlaceHolderItem";
 import CustomButton from "../../components/UI/CustomButton";
 import Colors from "../../constants/Colors";
+import * as articlesActions from "../../store/actions/articles";
 
 const ArticleDetailsScreen = (props) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [error, setError] = useState();
   const articleId = props.route.params.articleId;
-  const article = useSelector((state) => state.articles.articles.find((item) => item.id === articleId));
+  const article = useSelector((state) => state.articles.selectedArticle);
+  const dispatch = useDispatch();
 
+  const loadArticles = useCallback(async () => {
+    setError(null);
+    setIsRefreshing(true);
+    try {
+      await dispatch(articlesActions.fetchArticleById(articleId));
+    } catch (err) {
+      setError(err.message);
+    }
+    setIsRefreshing(false);
+  }, [dispatch, setIsLoading, setError]);
+
+  useEffect(() => {
+    setIsLoading(true);
+    loadArticles().then(() => {
+      setIsLoading(false);
+    });
+  }, [dispatch, loadArticles]);
+
+  if (error) {
+    return (
+      <View style={styles.centered}>
+        <Text>Une erreur est survenue</Text>
+        <Button title="Recharger" onPress={loadArticles} color={Colors.primary} />
+      </View>
+    );
+  }
+  if (isLoading) {
+    return (
+      <View style={styles.centered}>
+        <ActivityIndicator size="large" color={Colors.primary} />
+      </View>
+    );
+  }
   return (
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollView} refreshControl={<RefreshControl onRefresh={loadArticles} refreshing={isRefreshing} />}>
       <View style={styles.screen}>
         <View style={styles.imageContainer}>
           <ImageBackground
@@ -45,7 +83,7 @@ const ArticleDetailsScreen = (props) => {
               <View style={{ width: 80 }}>
                 <Image
                   resizeMethod={"auto"}
-                  source={{ uri: article.imageUrl }}
+                  source={{ uri: article.shopInfos.coverUrl }}
                   style={styles.imageShop}
                   imageStyle={{
                     resizeMode: "cover"
@@ -53,7 +91,7 @@ const ArticleDetailsScreen = (props) => {
                 />
               </View>
               <View style={styles.storeInfosContainer}>
-                <Text style={{ fontSize: 18, fontWeight: "500" }}>{article.shopName}</Text>
+                <Text style={{ fontSize: 18, fontWeight: "500" }}>{article.shopInfos.title}</Text>
                 <Text style={{ fontSize: 18, color: "#727272", fontWeight: "500" }}>Lyon 6</Text>
               </View>
             </View>
@@ -77,6 +115,7 @@ export const screenOptions = (navData) => {
 };
 
 const styles = StyleSheet.create({
+  centered: { flex: 1, justifyContent: "center", alignItems: "center" },
   imageContainer: {
     width: "100%",
     height: 400,
