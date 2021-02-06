@@ -1,20 +1,55 @@
-import React from "react";
-import { View, Text, StyleSheet, ImageBackground, TouchableWithoutFeedback } from "react-native";
-import { useSelector } from "react-redux";
-import { ScrollView } from "react-native-gesture-handler";
+import React, { useState, useEffect, useCallback } from "react";
+import { View, Text, StyleSheet, TouchableWithoutFeedback, ImageBackground, ScrollView, Image, ActivityIndicator, Button, RefreshControl } from "react-native";
+import { useSelector, useDispatch } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
 
-const ShopDetailsScreen = (props) => {
-  const shopId = props.route.params.shopId;
-  const shop = useSelector((state) => state.shops.shops.find((item) => item.id === shopId));
+import CustomLoader from "../../components/UI/CustomLoader";
+import * as shopsActions from "../../store/actions/shops";
 
+const ShopDetailsScreen = (props) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [error, setError] = useState();
+  const shopId = props.route.params.shopId;
+  const shop = useSelector((state) => state.shops.selectedShop);
+  const dispatch = useDispatch();
+
+  const loadShop = useCallback(async () => {
+    setError(null);
+    setIsRefreshing(true);
+    try {
+      await dispatch(shopsActions.fetchShopById(shopId));
+    } catch (err) {
+      setError(err.message);
+    }
+    setIsRefreshing(false);
+  }, [dispatch, setIsLoading, setError]);
+
+  useEffect(() => {
+    setIsLoading(true);
+    loadShop().then(() => {
+      setIsLoading(false);
+    });
+  }, [dispatch, loadShop]);
+
+  if (error) {
+    return (
+      <View style={styles.centered}>
+        <Text>Une erreur est survenue</Text>
+        <Button title="Recharger" onPress={loadShop} color="grey" />
+      </View>
+    );
+  }
+  if (isLoading) {
+    return <CustomLoader />;
+  }
   return (
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollView} refreshControl={<RefreshControl onRefresh={loadShop} refreshing={isRefreshing} />}>
       <View style={styles.screen}>
         <View style={styles.imageContainer}>
           <ImageBackground
             resizeMethod={"auto"}
-            source={{ uri: shop.imageUrl }}
+            source={{ uri: shop.coverUrl }}
             style={styles.image}
             imageStyle={{
               resizeMode: "cover",

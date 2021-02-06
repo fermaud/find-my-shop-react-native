@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Platform,
-  TouchableWithoutFeedback,
-  Image,
-  TouchableNativeFeedback,
-} from "react-native";
+import { View, Text, StyleSheet, Platform, TouchableWithoutFeedback, Image, TouchableNativeFeedback } from "react-native";
 
 const ShopThumb = (props) => {
   let TouchableCmp = TouchableWithoutFeedback;
@@ -19,13 +11,13 @@ const ShopThumb = (props) => {
     <TouchableCmp onPress={props.onSelect}>
       <View style={{ ...styles.shop, ...props.shopStyle }}>
         <View style={{ flex: 1 }}>
-          <Image style={styles.image} source={{ uri: props.imageUrl }} />
+          <Image style={styles.image} source={{ uri: props.coverUrl }} />
         </View>
         <View style={styles.details}>
           <Text numberOfLines={1} style={styles.title}>
             {props.title}
           </Text>
-          <Text>{props.city}</Text>
+          <Text>{props.locality}</Text>
         </View>
       </View>
     </TouchableCmp>
@@ -38,19 +30,19 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     height: 200,
     width: 250,
-    marginHorizontal: 4,
+    marginHorizontal: 4
   },
   image: {
     width: "100%",
-    height: "100%",
+    height: "100%"
   },
   details: {
     height: 60,
-    paddingTop: 5,
+    paddingTop: 5
   },
   price: {
-    fontWeight: "bold",
-  },
+    fontWeight: "bold"
+  }
 });
 
 export default ShopThumb;

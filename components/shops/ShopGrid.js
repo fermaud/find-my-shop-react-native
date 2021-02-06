@@ -15,14 +15,11 @@ const ShopHorizontalGrid = (props) => {
         <ShopThumb
           shopStyle={props.shopStyle}
           title={itemData.item.title}
-          imageUrl={itemData.item.imageUrl}
-          city={itemData.item.city}
+          coverUrl={itemData.item.coverUrl}
+          logoUrl={itemData.item.logoUrl}
+          locality={itemData.item.locality}
           onSelect={() => {
-            props.selectItem(
-              itemData.item.id,
-              itemData.item.title,
-              itemData.item.imageUrl
-            );
+            props.selectItem(itemData.item.id);
           }}
         />
       )}

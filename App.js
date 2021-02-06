@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
-import { enableScreens } from "react-native-screens";
+// import { enableScreens } from "react-native-screens";
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import ReduxThunk from "redux-thunk";
@@ -11,7 +11,7 @@ import articlesReducer from "./store/reducers/articles";
 import shopsReducer from "./store/reducers/shops";
 import authReducer from "./store/reducers/auth";
 
-enableScreens();
+// enableScreens();
 
 const rootReducer = combineReducers({
   articles: articlesReducer,

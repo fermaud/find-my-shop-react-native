@@ -4,6 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useSelector, useDispatch } from "react-redux";
 
 import SearchPlaceHolderItem from "../../components/UI/SearchPlaceHolderItem";
+import CustomLoader from "../../components/UI/CustomLoader";
 import CustomButton from "../../components/UI/CustomButton";
 import Colors from "../../constants/Colors";
 import * as articlesActions from "../../store/actions/articles";
@@ -16,7 +17,7 @@ const ArticleDetailsScreen = (props) => {
   const article = useSelector((state) => state.articles.selectedArticle);
   const dispatch = useDispatch();
 
-  const loadArticles = useCallback(async () => {
+  const loadArticle = useCallback(async () => {
     setError(null);
     setIsRefreshing(true);
     try {
@@ -29,28 +30,24 @@ const ArticleDetailsScreen = (props) => {
 
   useEffect(() => {
     setIsLoading(true);
-    loadArticles().then(() => {
+    loadArticle().then(() => {
       setIsLoading(false);
     });
-  }, [dispatch, loadArticles]);
+  }, [dispatch, loadArticle]);
 
   if (error) {
     return (
       <View style={styles.centered}>
         <Text>Une erreur est survenue</Text>
-        <Button title="Recharger" onPress={loadArticles} color={Colors.primary} />
+        <Button title="Recharger" onPress={loadArticle} color="grey" />
       </View>
     );
   }
   if (isLoading) {
-    return (
-      <View style={styles.centered}>
-        <ActivityIndicator size="large" color={Colors.primary} />
-      </View>
-    );
+    return <CustomLoader />;
   }
   return (
-    <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollView} refreshControl={<RefreshControl onRefresh={loadArticles} refreshing={isRefreshing} />}>
+    <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollView} refreshControl={<RefreshControl onRefresh={loadArticle} refreshing={isRefreshing} />}>
       <View style={styles.screen}>
         <View style={styles.imageContainer}>
           <ImageBackground
@@ -115,7 +112,6 @@ export const screenOptions = (navData) => {
 };
 
 const styles = StyleSheet.create({
-  centered: { flex: 1, justifyContent: "center", alignItems: "center" },
   imageContainer: {
     width: "100%",
     height: 400,
