@@ -7,7 +7,7 @@ import CustomLoader from "../../components/UI/CustomLoader";
 import * as shopsActions from "../../store/actions/shops";
 
 const ShopDetailsScreen = (props) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [error, setError] = useState();
   const shopId = props.route.params.shopId;

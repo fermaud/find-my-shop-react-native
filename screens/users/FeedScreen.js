@@ -19,10 +19,6 @@ const FeedScreen = (props) => {
 
   const dispatch = useDispatch();
 
-  // TO DELETE
-  // const shops = useSelector((state) => state.shops.shops);
-  // TO DELETE
-
   // Fonction pour récuperer les éléments
   const loadArticlesAndShops = useCallback(async () => {
     setError(null);
@@ -35,14 +31,6 @@ const FeedScreen = (props) => {
     }
     setIsRefreshing(false);
   }, [dispatch, setIsLoading, setError]);
-
-  // // Actualise au changement de page
-  // useEffect(() => {
-  //   const willFocusSub = props.navigation.addListener("willFocus", loadArticlesAndShops);
-  //   return () => {
-  //     willFocusSub.remove();
-  //   };
-  // }, [loadArticlesAndShops]);
 
   // Actualise si le state change
   useEffect(() => {
@@ -90,8 +78,8 @@ const FeedScreen = (props) => {
         <ShopGrid
           horizontal={true}
           shops={suggestedShops}
-          selectItem={(id) => {
-            selectShopHandler(id);
+          selectItem={(id, coverUrl, logoUrl) => {
+            selectShopHandler(id, coverUrl, logoUrl);
           }}
         />
         <SectionTitle style={{ marginBottom: 15, marginTop: 15 }}>Articles tendances</SectionTitle>

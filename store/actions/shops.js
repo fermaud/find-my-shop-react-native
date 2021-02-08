@@ -17,7 +17,7 @@ export const fetchSuggestedShops = () => {
         }
       });
       if (!response.data.status) {
-        console.log("ERROR");
+        console.log(response.data);
         return response.data;
       }
       const data = response.data.data;
@@ -44,7 +44,7 @@ export const fetchShopById = (shopId) => {
         }
       });
       if (!response.data.status) {
-        console.log("ERROR");
+        console.log(response.data);
         return response.data;
       }
       const data = response.data.data;

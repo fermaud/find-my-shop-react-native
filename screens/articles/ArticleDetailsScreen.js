@@ -10,7 +10,7 @@ import Colors from "../../constants/Colors";
 import * as articlesActions from "../../store/actions/articles";
 
 const ArticleDetailsScreen = (props) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [error, setError] = useState();
   const articleId = props.route.params.articleId;
@@ -20,6 +20,7 @@ const ArticleDetailsScreen = (props) => {
   const loadArticle = useCallback(async () => {
     setError(null);
     setIsRefreshing(true);
+
     try {
       await dispatch(articlesActions.fetchArticleById(articleId));
     } catch (err) {

@@ -22,11 +22,9 @@ const SearchShopResultScreen = (props) => {
     { id: "f5", title: "Shop", isSelected: false }
   ];
 
-  const selectShopHandler = (id, title, imageUrl) => {
+  const selectShopHandler = (id) => {
     props.navigation.navigate("ShopDetails", {
-      shopId: id,
-      shopTitle: title,
-      shopImageUrl: imageUrl
+      shopId: id
     });
   };
 
@@ -61,8 +59,8 @@ const SearchShopResultScreen = (props) => {
         <ShopGrid
           shopStyle={styles.shopThumbStyle}
           shops={shops}
-          selectItem={(id, title, imageUrl) => {
-            selectShopHandler(id, title, imageUrl);
+          selectItem={(id) => {
+            selectShopHandler(id);
           }}
         />
       </View>

@@ -16,7 +16,7 @@ export const fetchSuggestedArticles = () => {
         }
       });
       if (!response.data.status) {
-        console.log("ERROR");
+        console.log(response.data);
         return response.data;
       }
 
@@ -57,7 +57,7 @@ export const fetchArticleById = (articleId) => {
         }
       });
       if (!response.data.status) {
-        console.log("ERROR");
+        console.log(response.data);
         return response.data;
       }
       const data = response.data.data;

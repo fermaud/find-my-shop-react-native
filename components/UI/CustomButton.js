@@ -1,10 +1,11 @@
 import React from "react";
-import { TouchableWithoutFeedback, StyleSheet, Text, View } from "react-native";
+import { TouchableWithoutFeedback, StyleSheet, Text, View, Image } from "react-native";
 
 const CustomButton = (props) => {
   return (
     <TouchableWithoutFeedback onPress={props.onPress}>
       <View style={{ ...styles.button, ...props.style }} onPress={props.onPress} underlayColor="#fff">
+        {props.children}
         <Text style={{ ...styles.loginText, ...props.textStyle }}>{props.title}</Text>
       </View>
     </TouchableWithoutFeedback>
@@ -13,6 +14,9 @@ const CustomButton = (props) => {
 
 const styles = StyleSheet.create({
   button: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: "black"
   },
   loginText: {

@@ -27,7 +27,6 @@ const shopsRecucer = (state = initialState, action) => {
     default:
       return state;
   }
-  return state;
 };
 
 export default shopsRecucer;

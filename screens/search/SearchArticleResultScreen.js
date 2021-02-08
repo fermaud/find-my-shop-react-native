@@ -22,11 +22,9 @@ const SearchArticleResultScreen = (props) => {
     { id: "f5", title: "Shop", isSelected: false }
   ];
 
-  const selectArticleHandler = (id, title, imageUrl) => {
+  const selectArticleHandler = (id) => {
     props.navigation.navigate("ArticleDetails", {
-      articleId: id,
-      articleTitle: title,
-      articleImageUrl: imageUrl
+      articleId: id
     });
   };
 
@@ -62,8 +60,8 @@ const SearchArticleResultScreen = (props) => {
           numColumns={2}
           articleStyle={styles.articleThumbStyle}
           articles={articles}
-          selectItem={(id, title, imageUrl) => {
-            selectArticleHandler(id, title, imageUrl);
+          selectItem={(id) => {
+            selectArticleHandler(id);
           }}
         />
       </View>
