@@ -1,15 +1,14 @@
 import axios from "axios";
 import Article from "../../models/article";
+import ENV from "../../env";
 
 export const SET_SUGGESTED_ARTICLE = "SET_SUGGESTED_ARTICLE";
 export const SET_SELECTED_ARTICLE = "SET_SELECTED_ARTICLE";
 
-const BASE_URL = "https://api.find-my-shop.com/public/";
-
 export const fetchSuggestedArticles = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(BASE_URL + "algolia-search/ARTICLE?isOnline=true", {
+      const response = await axios.get(ENV.API_BASE_URL + "algolia-search/ARTICLE?isOnline=true", {
         headers: {
           // "Content-Type": "application/json",
           Authorization: "JWT " + "514656465"
@@ -50,7 +49,7 @@ export const fetchSuggestedArticles = () => {
 export const fetchArticleById = (articleId) => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(BASE_URL + "article/" + articleId, {
+      const response = await axios.get(ENV.API_BASE_URL + "article/" + articleId, {
         headers: {
           // "Content-Type": "application/json",
           Authorization: "JWT " + "514656465"

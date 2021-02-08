@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import SearchPlaceHolderItem from "../../components/UI/SearchPlaceHolderItem";
 import CustomLoader from "../../components/UI/CustomLoader";
+import ErrorOccured from "../../components/UI/ErrorOccured";
 import CustomButton from "../../components/UI/CustomButton";
 import Colors from "../../constants/Colors";
 import * as articlesActions from "../../store/actions/articles";
@@ -37,12 +38,8 @@ const ArticleDetailsScreen = (props) => {
   }, [dispatch, loadArticle]);
 
   if (error) {
-    return (
-      <View style={styles.centered}>
-        <Text>Une erreur est survenue</Text>
-        <Button title="Recharger" onPress={loadArticle} color="grey" />
-      </View>
-    );
+    console.log(error);
+    return <ErrorOccured onPress={loadArticlesAndShops} />;
   }
   if (isLoading) {
     return <CustomLoader />;

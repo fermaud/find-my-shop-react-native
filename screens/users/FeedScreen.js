@@ -4,11 +4,12 @@ import { useSelector, useDispatch } from "react-redux";
 
 import ArticleGrid from "../../components/articles/ArticleGrid";
 import ShopGrid from "../../components/shops/ShopGrid";
+import ErrorOccured from "../../components/UI/ErrorOccured";
 import CustomLoader from "../../components/UI/CustomLoader";
 import SectionTitle from "../../components/UI/SectionTitle";
 import * as articlesActions from "../../store/actions/articles";
 import * as shopsActions from "../../store/actions/shops";
-import Colors from "../../constants/Colors";
+import * as usersActions from "../../store/actions/users";
 
 const FeedScreen = (props) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -24,8 +25,13 @@ const FeedScreen = (props) => {
     setError(null);
     setIsRefreshing(true);
     try {
-      await dispatch(shopsActions.fetchSuggestedShops());
-      await dispatch(articlesActions.fetchSuggestedArticles());
+      const req1 = await dispatch(usersActions.fetchConnectedUser());
+      // if (!req1.status) {
+      //   console.log(req1.message);
+      //   setError(req1.message);
+      // }
+      const req2 = await dispatch(shopsActions.fetchSuggestedShops());
+      const req3 = await dispatch(articlesActions.fetchSuggestedArticles());
     } catch (err) {
       setError(err.message);
     }
@@ -53,12 +59,8 @@ const FeedScreen = (props) => {
   };
 
   if (error) {
-    return (
-      <View style={styles.centered}>
-        <Text>Une erreur est survenue</Text>
-        <Button title="Recharger" onPress={loadArticlesAndShops} color="grey" />
-      </View>
-    );
+    console.log(error);
+    return <ErrorOccured onPress={loadArticlesAndShops} />;
   }
   if (isLoading) {
     return <CustomLoader />;

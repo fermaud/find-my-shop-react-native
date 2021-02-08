@@ -124,7 +124,7 @@ const GeneralBottomTabNavigator = createBottomTabNavigator();
 
 export const GeneralNavigator = () => {
   return (
-    <GeneralBottomTabNavigator.Navigator initialRouteName="Home">
+    <GeneralBottomTabNavigator.Navigator initialRouteName="FeedTab">
       <GeneralBottomTabNavigator.Screen
         name="FeedTab"
         component={FeedNavigator}

@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { View, Text, StyleSheet, TouchableWithoutFeedback, ImageBackground, ScrollView, Image, ActivityIndicator, Button, RefreshControl } from "react-native";
+import { View, Text, StyleSheet, TouchableWithoutFeedback, ImageBackground, ScrollView, RefreshControl } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
 
 import CustomLoader from "../../components/UI/CustomLoader";
 import * as shopsActions from "../../store/actions/shops";
+import ErrorOccured from "../../components/UI/ErrorOccured";
 
 const ShopDetailsScreen = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -33,12 +34,8 @@ const ShopDetailsScreen = (props) => {
   }, [dispatch, loadShop]);
 
   if (error) {
-    return (
-      <View style={styles.centered}>
-        <Text>Une erreur est survenue</Text>
-        <Button title="Recharger" onPress={loadShop} color="grey" />
-      </View>
-    );
+    console.log(error);
+    return <ErrorOccured onPress={loadArticlesAndShops} />;
   }
   if (isLoading) {
     return <CustomLoader />;

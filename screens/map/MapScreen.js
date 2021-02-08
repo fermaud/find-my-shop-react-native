@@ -1,11 +1,15 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Dimensions, Text } from "react-native";
+import React, { useState, useEffect, useCallback } from "react";
+import { View, StyleSheet, Dimensions, Text, TouchableWithoutFeedback, Alert } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import MapView, { Marker, Callout } from "react-native-maps";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import * as Location from "expo-location";
 
+import ErrorOccured from "../../components/UI/ErrorOccured";
+import * as shopsActions from "../../store/actions/shops";
 import FiltersList from "../../components/UI/FiltersList";
 import CustomSearchRounded from "../../components/UI/CustomSearchRounded";
+import CustomLoader from "../../components/UI/CustomLoader";
 
 const filterList = [
   { id: "f1", title: "Filter", isSelected: false },
@@ -16,16 +20,62 @@ const filterList = [
 ];
 
 const MapScreen = (props) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [error, setError] = useState();
   const [searchQuery, setSearchQuery] = useState("");
+  const latitudeDelta = 0.1;
+  const longitudeDelta = 0.1;
+
   const [userLocation, setUserLocation] = useState({
     latitude: 45.7663955,
     longitude: 4.8355592,
-    latitudeDelta: 0.1,
-    longitudeDelta: 0.1
+    latitudeDelta: latitudeDelta,
+    longitudeDelta: longitudeDelta
   });
 
-  const shops = useSelector((state) => state.shops.shops);
+  const [cameraPosition, setCameraPosition] = useState({
+    latitude: 45.7663955,
+    longitude: 4.8355592,
+    latitudeDelta: latitudeDelta,
+    longitudeDelta: longitudeDelta
+  });
 
+  function goToUserPosition() {
+    setCameraPosition(userLocation);
+  }
+
+  const shopsToPrint = useSelector((state) => state.shops.shopsOnTheMap);
+
+  const dispatch = useDispatch();
+
+  // Fonction pour récuperer les éléments
+  const loadShopsFromLocation = useCallback(async () => {
+    setError(null);
+    setIsRefreshing(true);
+    try {
+      await dispatch(shopsActions.fetchShopsFromLocation());
+    } catch (err) {
+      setError(err.message);
+    }
+    setIsRefreshing(false);
+  }, [dispatch, setIsLoading, setError]);
+
+  // Actualise si le state change
+  useEffect(() => {
+    setIsLoading(true);
+    loadShopsFromLocation().then(() => {
+      setIsLoading(false);
+    });
+  }, [dispatch, loadShopsFromLocation]);
+
+  if (error) {
+    console.log(error);
+    return <ErrorOccured onPress={loadShopsFromLocation} />;
+  }
+  if (isLoading) {
+    return <CustomLoader />;
+  }
   return (
     <View style={styles.screen}>
       <View>
@@ -40,7 +90,9 @@ const MapScreen = (props) => {
               style={{ flex: 1 }}
             />
             <View style={styles.locationButtonContainer}>
-              <Ionicons name="location-outline" size={35} color="#989898" />
+              <TouchableWithoutFeedback onPress={goToUserPosition}>
+                <Ionicons name="location-outline" size={35} color="#989898" />
+              </TouchableWithoutFeedback>
             </View>
           </View>
           <FiltersList
@@ -55,8 +107,24 @@ const MapScreen = (props) => {
           <MapView
             style={styles.map}
             mapType="standard"
-            initialRegion={userLocation}
-            // onUserLocationChange={(region) => console.log("user mooved")}
+            region={cameraPosition}
+            // onRegionChange={
+            //   (result) => console.log(cameraPosition)
+            //   // setCameraPosition({
+            //   //   latitude: result.latitude,
+            //   //   longitude: result.longitude,
+            //   //   latitudeDelta: latitudeDelta,
+            //   //   longitudeDelta: longitudeDelta
+            //   // })
+            // }
+            onUserLocationChange={(result) =>
+              setUserLocation({
+                latitude: result.nativeEvent.coordinate.latitude,
+                longitude: result.nativeEvent.coordinate.longitude,
+                latitudeDelta: latitudeDelta,
+                longitudeDelta: longitudeDelta
+              })
+            }
             // onRegionChange={(region) => console.log("changed")}
             // onRegionChangeComplete={(region) => console.log("changed done")}
             minZoomLevel={5}
@@ -64,16 +132,11 @@ const MapScreen = (props) => {
             showsMyLocationButton={true}
             showsUserLocation={true}
           >
-            {shops.map((shop, index) => (
-              <Marker
-                key={index}
-                coordinate={shop.coordinates}
-                // onPress={() => console.log(shop)}
-              >
-                <View style={styles.markerStyle}>
-                  {/* <Text style={{ color: "white" }}>Shop</Text> */}
+            {shopsToPrint.map((shop, index) => (
+              <Marker key={index} coordinate={{ longitude: shop.coordinates[0], latitude: shop.coordinates[1] }} onPress={() => console.log(shop)}>
+                {/* <View style={styles.markerStyle}>
                   <Ionicons name="home-outline" size={25} color="black" />
-                </View>
+                </View> */}
                 <Callout tooltip>
                   <View style={styles.tooltipStyle}>
                     <Text numberOfLines={1}>{shop.title}</Text>

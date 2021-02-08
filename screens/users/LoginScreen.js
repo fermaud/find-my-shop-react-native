@@ -7,6 +7,7 @@ import * as authActions from "../../store/actions/auth";
 import SectionTitle from "../../components/UI/SectionTitle";
 import CustomButton from "../../components/UI/CustomButton";
 import Colors from "../../constants/Colors";
+import VAR from "../../env";
 
 const LoginScreen = (props) => {
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ const LoginScreen = (props) => {
   async function facebookLogin() {
     try {
       await Facebook.initializeAsync({
-        appId: "fb425609455355772"
+        appId: VAR.FACEBOOK_APP_ID
       });
       const { type, token, expirationDate, permissions, declinedPermissions } = await Facebook.logInWithReadPermissionsAsync({
         permissions: ["public_profile"]
@@ -51,14 +52,14 @@ const LoginScreen = (props) => {
         </ImageBackground>
       </View>
       <View style={styles.formContainer}>
-        <SectionTitle style={{ marginTop: 15, textAlign: "center", color: "#5A5A5A" }}>Trouvez les meilleurs shops et articles en exclusivité autour de vous !</SectionTitle>
+        <SectionTitle style={{ marginTop: 5, textAlign: "center", color: "#5A5A5A" }}>Trouvez les meilleurs shops et articles en exclusivité autour de vous !</SectionTitle>
         <View>
-          <CustomButton onPress={() => facebookLogin()} style={styles.facebookButton} textStyle={{ color: "white", fontSize: 20, fontWeight: "600" }} title="CONTINUER">
+          <CustomButton onPress={() => facebookLogin()} style={styles.facebookButton} textStyle={{ color: "white", fontSize: 18, fontWeight: "600" }} title="CONTINUER">
             <Image source={require("../../assets/images/facebook.png")} style={{ marginRight: 10, width: 30, height: 30 }} />
           </CustomButton>
           <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 10 }}>
             <View style={{ flex: 1, paddingRight: 5 }}>
-              <CustomButton onPress={() => console.log("Login")} style={styles.googleButton} textStyle={{ color: "white", fontSize: 18, fontWeight: "600" }} title="CONTINUER">
+              <CustomButton onPress={() => console.log("Login")} style={styles.googleButton} textStyle={{ color: "white", fontSize: 16, fontWeight: "600" }} title="CONTINUER">
                 <Image source={require("../../assets/images/google.png")} style={{ marginRight: 10, width: 25, height: 25 }} />
               </CustomButton>
             </View>

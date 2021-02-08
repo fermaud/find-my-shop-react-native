@@ -1,4 +1,4 @@
-import { SET_SUGGESTED_SHOP, SET_SELECTED_SHOP } from "../actions/shops";
+import { SET_SUGGESTED_SHOP, SET_SELECTED_SHOP, SET_SHOPS_ON_THE_MAP } from "../actions/shops";
 
 const initialState = {
   selectedShop: {
@@ -9,7 +9,8 @@ const initialState = {
     coverUrl: "",
     logoUrl: ""
   },
-  suggestedShops: []
+  suggestedShops: [],
+  shopsOnTheMap: []
 };
 
 const shopsRecucer = (state = initialState, action) => {
@@ -23,6 +24,11 @@ const shopsRecucer = (state = initialState, action) => {
       return {
         ...state,
         selectedShop: action.shop
+      };
+    case SET_SHOPS_ON_THE_MAP:
+      return {
+        ...state,
+        shopsOnTheMap: action.shops
       };
     default:
       return state;

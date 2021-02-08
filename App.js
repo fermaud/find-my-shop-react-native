@@ -10,13 +10,15 @@ import AppNavigator from "./navigation/AppNavigator";
 import articlesReducer from "./store/reducers/articles";
 import shopsReducer from "./store/reducers/shops";
 import authReducer from "./store/reducers/auth";
+import usersRecucer from "./store/reducers/users";
 
 // enableScreens();
 
 const rootReducer = combineReducers({
   articles: articlesReducer,
   shops: shopsReducer,
-  auth: authReducer
+  auth: authReducer,
+  users: usersRecucer
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));

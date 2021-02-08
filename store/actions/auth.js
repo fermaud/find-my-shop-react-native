@@ -1,11 +1,10 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-community/async-storage";
+import ENV from "../../env";
 
 export const AUTHENTICATE = "AUTHENTICATE";
 export const LOG_OUT = "LOG_OUT";
 export const SET_DID_TRY_AL = "SET_DID_TRY_AL";
-
-const BASE_URL = "https://api.find-my-shop.com/public/";
 
 let timer;
 
@@ -23,7 +22,7 @@ export const authenticate = (userId, token, expiryTime) => {
 export const facebookAuth = (userData) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post(BASE_URL + "user/register-or-login-from-facebook", userData);
+      const response = await axios.post(ENV.API_BASE_URL + "user/register-or-login-from-facebook", userData);
       if (!response.data.status) {
         console.log(response.data);
         return response.data;
