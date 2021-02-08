@@ -1,13 +1,45 @@
-import React from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
-import { View, Text, StyleSheet, TouchableWithoutFeedback, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  Image,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+
 import Colors from "../../constants/Colors";
+import * as usersActions from "../../store/actions/users";
 
 const UserProfileScreen = (props) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [error, setError] = useState();
   const connectedUser = useSelector((state) => state.users.connectedUser);
-  console.log(connectedUser);
+
+  const dispatch = useDispatch();
+
+  // Fonction pour récuperer les infos de l'user
+  const loadConnectedUser = useCallback(async () => {
+    setError(null);
+    setIsRefreshing(true);
+    try {
+      await dispatch(usersActions.loadConnectedUser());
+    } catch (err) {
+      setError(err.message);
+    }
+    setIsRefreshing(false);
+  }, [dispatch, setIsLoading, setError]);
+
+  // Actualise si le state change
+  useEffect(() => {
+    setIsLoading(true);
+    loadConnectedUser().then(() => {
+      setIsLoading(false);
+    });
+  }, [dispatch, loadConnectedUser]);
+
   return (
     <View style={styles.screen}>
       <View style={styles.headerContainer}>
@@ -17,49 +49,61 @@ const UserProfileScreen = (props) => {
             <Text style={styles.title}>Mon profil</Text>
           </View>
           <View style={{ flex: 1 }}>
-            <TouchableWithoutFeedback onPress={() => props.navigation.navigate("UserParameters")}>
-              <Ionicons style={styles.settingsButton} name="settings-outline" size={33} color="white" />
+            <TouchableWithoutFeedback
+              onPress={() => props.navigation.navigate("UserParameters")}
+            >
+              <Ionicons
+                style={styles.settingsButton}
+                name="settings-outline"
+                size={33}
+                color="white"
+              />
             </TouchableWithoutFeedback>
           </View>
         </View>
       </View>
       <View style={{ flexDirection: "column" }}>
-        <Image style={styles.profilePicture} source={require("../../assets/images/profile.jpg")} />
+        <Image
+          style={styles.profilePicture}
+          source={{ uri: connectedUser.imageUrl }}
+        />
         <View style={{ backgroundColor: Colors.primary, height: 100 }}></View>
         <View style={{ height: 100 }}></View>
       </View>
-      <Text style={styles.userName}>dze</Text>
+      <Text numberOfLines={1} style={styles.userName}>
+        {connectedUser.firstName} {connectedUser.lastName}
+      </Text>
     </View>
   );
 };
 
 export const screenOptions = (navData) => {
   return {
-    headerShown: false
+    headerShown: false,
   };
 };
 
 const styles = StyleSheet.create({
   screen: {
-    flex: 1
+    flex: 1,
   },
   headerContainer: {
     paddingTop: 50,
     backgroundColor: Colors.primary,
-    height: 120
+    height: 120,
   },
   titleLogo: {
     flex: 1,
-    flexDirection: "row"
+    flexDirection: "row",
   },
   title: {
     color: "white",
     fontWeight: "600",
     fontSize: 30,
-    textAlign: "center"
+    textAlign: "center",
   },
   settingsButton: {
-    alignSelf: "center"
+    alignSelf: "center",
   },
   profilePicture: {
     height: 175,
@@ -71,19 +115,21 @@ const styles = StyleSheet.create({
     position: "absolute",
     shadowOffset: {
       width: 0,
-      height: 0
+      height: 0,
     },
     shadowOpacity: 0.6,
     shadowColor: "grey",
     zIndex: 2,
     marginTop: 12.5,
-    borderRadius: 100
+    borderRadius: 100,
   },
   userName: {
+    alignSelf: "center",
     textAlign: "center",
-    fontSize: 34,
-    fontWeight: "500"
-  }
+    width: "85%",
+    fontSize: 30,
+    fontWeight: "500",
+  },
 });
 
 export default UserProfileScreen;

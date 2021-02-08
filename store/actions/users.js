@@ -2,7 +2,8 @@ import axios from "axios";
 import User from "../../models/user";
 import ENV from "../../env";
 
-export const SET_CONNECTED_USER = "SET_SUGGESTED_ARTICLE";
+export const SET_CONNECTED_USER = "SET_CONNECTED_USER";
+export const UPDATE_CONNECTED_USER = "UPDATE_CONNECTED_USER";
 
 export const fetchConnectedUser = () => {
   return async (dispatch, getState) => {
@@ -10,8 +11,8 @@ export const fetchConnectedUser = () => {
       const token = getState().auth.token;
       const response = await axios.get(ENV.API_BASE_URL + "user/connected", {
         headers: {
-          Authorization: "JWT " + token
-        }
+          Authorization: "JWT " + token,
+        },
       });
       if (!response.data.status) {
         console.log(response.data);
@@ -34,6 +35,32 @@ export const fetchConnectedUser = () => {
       );
 
       dispatch({ type: SET_CONNECTED_USER, user: user });
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
+  };
+};
+
+export const updateConnectedUserProfile = () => {
+  return async (dispatch, getState) => {
+    try {
+      const token = getState().auth.token;
+      const response = await axios.get(
+        ENV.API_BASE_URL + "user/edit-connected",
+        {
+          headers: {
+            Authorization: "JWT " + token,
+          },
+        }
+      );
+      console.log(response.data);
+      if (!response.data.status) {
+        console.log(response.data);
+        return response.data;
+      }
+      const data = response.data.data;
+      dispatch({ type: UPDATE_CONNECTED_USER, user: user });
     } catch (err) {
       console.log(err);
       throw err;

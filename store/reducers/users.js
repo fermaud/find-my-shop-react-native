@@ -1,7 +1,7 @@
-import { SET_CONNECTED_USER } from "../actions/users";
+import { SET_CONNECTED_USER, UPDATE_CONNECTED_USER } from "../actions/users";
 
 const initialState = {
-  connectedUser: {}
+  connectedUser: {},
 };
 
 const usersRecucer = (state = initialState, action) => {
@@ -9,7 +9,12 @@ const usersRecucer = (state = initialState, action) => {
     case SET_CONNECTED_USER:
       return {
         ...state,
-        connectedUser: action.user
+        connectedUser: action.user,
+      };
+    case UPDATE_CONNECTED_USER:
+      return {
+        ...state,
+        connectedUser: action.user,
       };
     default:
       return state;
