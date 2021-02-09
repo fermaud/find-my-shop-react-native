@@ -46,7 +46,7 @@ const ArticleDetailsScreen = (props) => {
 
   if (error) {
     console.log(error);
-    return <ErrorOccured onPress={loadArticlesAndShops} />;
+    return <ErrorOccured onPress={loadArticle} />;
   }
   if (isLoading) {
     return <CustomLoader />;

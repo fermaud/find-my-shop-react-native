@@ -8,39 +8,6 @@ export const SET_DID_TRY_AL = "SET_DID_TRY_AL";
 
 let timer;
 
-export const setDidTryAL = () => {
-  return { type: SET_DID_TRY_AL };
-};
-
-export const authenticate = (userId, token, expiryTime) => {
-  return (dispatch) => {
-    dispatch(setLogoutTimer(expiryTime));
-    dispatch({ type: AUTHENTICATE, userId: userId, token: token });
-  };
-};
-
-export const facebookAuth = (userData) => {
-  return async (dispatch) => {
-    try {
-      const response = await axios.post(ENV.API_BASE_URL + "user/register-or-login-from-facebook", userData);
-      if (!response.data.status) {
-        console.log(response.data);
-        return response.data;
-      }
-      const data = response.data.data;
-      // 365 days in milliseconds
-      const expirationTime = 365 * 24 * 3600 * 1000;
-      dispatch(authenticate(data.userId, data.token, expirationTime));
-
-      const expirationDate = new Date(new Date().getTime() + expirationTime);
-      saveDataToStorage(data.userId, data.token, expirationDate);
-    } catch (err) {
-      console.log(err);
-      throw err;
-    }
-  };
-};
-
 export const logOut = () => {
   clearLogoutTimer();
   AsyncStorage.removeItem("userData");
@@ -70,4 +37,43 @@ const saveDataToStorage = (userId, token, expirationDate) => {
       expiryDate: expirationDate.toISOString()
     })
   );
+};
+
+// Requests
+const registerOrLoginFromFacebook = (userData) => {
+  return axios.post(ENV.API_BASE_URL + "user/register-or-login-from-facebook", userData);
+};
+// Requests
+
+export const setDidTryAL = () => {
+  return { type: SET_DID_TRY_AL };
+};
+
+export const authenticate = (userId, token, expiryTime) => {
+  return (dispatch) => {
+    dispatch(setLogoutTimer(expiryTime));
+    dispatch({ type: AUTHENTICATE, userId: userId, token: token });
+  };
+};
+
+export const facebookAuth = (userData) => {
+  return async (dispatch) => {
+    try {
+      const response = await registerOrLoginFromFacebook(userData);
+      if (!response.data.status) {
+        console.log(response.data);
+        throw new Error(response.data.message);
+      }
+      const data = response.data.data;
+      // 365 days in milliseconds
+      const expirationTime = 365 * 24 * 3600 * 1000;
+      dispatch(authenticate(data.userId, data.token, expirationTime));
+
+      const expirationDate = new Date(new Date().getTime() + expirationTime);
+      saveDataToStorage(data.userId, data.token, expirationDate);
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
+  };
 };

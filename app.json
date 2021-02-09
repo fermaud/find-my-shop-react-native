@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "FindMyShop",
+    "description": "FindMyShop vous accompagne dans votre shopping tout en améliorant la visibilité du commerçant",
     "slug": "find-my-shop",
     "privacy": "public",
     "sdkVersion": "40.0.0",
@@ -21,16 +22,23 @@
       "**/*"
     ],
     "ios": {
+      "buildNumber": "1.0.0",
       "supportsTablet": true,
       "bundleIdentifier": "com.fermaud.find-my-shop-react-native"
     },
     "android": {
-      "versionCode": 1,
+      "permissions": ["CAMERA", "MEDIA_LIBRARY", "INTERNET"],
+      "versionCode": 2,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.fermaud.findmyshopreactnative"
+      "package": "com.fermaud.findmyshopreactnative",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDeINWQfestNnvNHWS0NlrhYo25QD4sxDY"
+        }
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"

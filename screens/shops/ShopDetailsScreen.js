@@ -25,6 +25,7 @@ const ShopDetailsScreen = (props) => {
     try {
       await dispatch(shopsActions.fetchShopById(shopId));
     } catch (err) {
+      console.log(err);
       setError(err.message);
     }
     setIsRefreshing(false);
@@ -42,7 +43,7 @@ const ShopDetailsScreen = (props) => {
 
   if (error) {
     console.log(error);
-    return <ErrorOccured onPress={loadArticlesAndShops} />;
+    return <ErrorOccured onPress={loadShop} />;
   }
   if (isLoading) {
     return <CustomLoader />;
