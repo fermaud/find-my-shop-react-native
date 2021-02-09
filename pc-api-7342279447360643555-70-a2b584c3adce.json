@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "pc-api-7342279447360643555-70",
+  "private_key_id": "a2b584c3adceec176fd871674f5452966ea83a5b",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCxwlp7Wc9gkML0\nr0lBhoA79Ran/6wPt8qxHIIe4E+F69RQcgTLcqQvbrKm7EEvTFjJIpOMFC37T1Ri\njZq9kknEOnz7MJ1/kNafwJTO4mIWMP8ZyobJDKPgeDMGYaAysEpUJX3w4zmrMTgh\nAIsk6dsWIkV66kVBcq9xJpkQcqODJrSqDsx0k4YiAGe+9rIK/a6nwJ9ge7U6R/Rh\ngg4mwjGejzSytQo5CnGE5goFlsUgeD/qSQA00DIXayqkb7HRH1rTRqo8wwO7AHwp\nx5b+Vub5LncwX8n596IXtP6qiElEONryzx4LCQrWBpHge6Iy8U6sTaWXlt6uAbaH\n3QS9FYkFAgMBAAECggEABTVY4drejumG8NTu/E7E1JzoikkdQUOlGn3nmSCA6/9e\nM/I3Tj/AbExdyzLKcSiXRGNxN85Cj6XCJvYXtdzCsQ92qISC5OE5TKp/obUz4wsR\n+m869kqaxaG3+wSixUFxmBgWIdgCkU/KoXrq2MzKWNJtvz18hH+oANR88SSuwlG0\nQgmp6ZkjlK09TRY2W1jN7u7SrZXe9AzezMtvMN/QX4xS5zWTQXRxICuRawz9/Z7v\ns/x/I7jM/Kcyyd1Kyt0lYYDXO9mB2MQomVj4JsiQf1EL3UgNjs70kUdFKSrlC4zI\nHsVqS2t1oaMPqqZhj5W3X5OT3UF9+Ehgsmojhl6nCQKBgQDZuSs0FKYlcljdrONf\nvcaIuFEufBbNaLW5XajfiYEr0AD+kyKgmIqwp+cblpk5dnj63I6/ViEJU2D8e+lN\n9LAocNwS/tagKhFCT++SlS0rDBijs1+VYqUE6L4YcJQCkVePgjLcyXYkm2Vh9adW\ng8U93MDURMPJgTrt0powgNXvWQKBgQDRApBYlNjKMm2VStU8slBoVA4BazybCgVN\nW3juDFbA5qBIP/h4fNgQgS6UfwASsrSratJ3gBI378ap3f2WRFzEPtutg3txscvQ\nsnkhNOhfL/iBfRQXR7KvSIQfU8bajbU+kV44i8N8dpidTujud7WFH4vTYPmlyT48\n4yTGPGy9jQKBgQDYlk73OU9q0wy6QOHT/WrB2XHQ51qbrn2Q0C5NaXGZTwueNGpv\nDjBxuiW6mR8GPeftznkmuByXNV227eFSTobrRBJ5xw9lN1QB/pkZ3dKYDyl3t9nv\nNrloX8uzblKfF0zekyvb3YHsurWpNIHqG52cg71DrMCD9U3VBfujIpcvyQKBgDDB\noFqJnmjMirOg2U1na0prETlTgrfIBqSdCgC98B7frdQs2BGDTgPLnsoVNjcmaO7z\n5FTsE1PpIzbNCjLbj6hX4XcAjPNgvmLYv1j3tp0924KZYu5rU0uAZxHHwUOKexU1\nY/1c3SVTpRZNKhk246lCSqPso1ABOfuKITH9NoChAoGAXGCwcC5zY6Qsa164QlkD\npntiPG9gQVjvp9DOF00si/L5L+5BbELf/RlvZyXqk1OcTVbY3vERXHQKAsIsLWJg\nvBgjsE6AUA4BH6cZ4aHuhsCP47/KFHZwbzCRLguoMBNZfDHgWtoTdtRlMfJKg3wf\nSeAjsNzEB20VtDUFyIg3qEo=\n-----END PRIVATE KEY-----\n",
+  "client_email": "expo-findmyshop@pc-api-7342279447360643555-70.iam.gserviceaccount.com",
+  "client_id": "115651053508471664602",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/expo-findmyshop%40pc-api-7342279447360643555-70.iam.gserviceaccount.com"
+}
