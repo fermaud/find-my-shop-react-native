@@ -99,11 +99,12 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   headerButtonContainer: {
-    marginTop: 50,
-    width: "95%",
+    backgroundColor: "rgba(0,0,0,0.15)",
+    paddingTop: 50,
+    height: "100%",
+    paddingHorizontal: 10,
     flexDirection: "row",
-    justifyContent: "space-between",
-    alignSelf: "center"
+    justifyContent: "space-between"
   }
 });
 

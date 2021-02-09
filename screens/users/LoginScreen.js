@@ -2,6 +2,7 @@ import React from "react";
 import { View, StyleSheet, ImageBackground, Image, Text } from "react-native";
 import * as Facebook from "expo-facebook";
 import { useDispatch } from "react-redux";
+import { BlurView } from "expo-blur";
 
 import * as authActions from "../../store/actions/auth";
 import SectionTitle from "../../components/UI/SectionTitle";
@@ -101,12 +102,20 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   logoContainer: {
-    width: "60%"
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.40)",
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 0,
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center"
   },
   logo: {
     resizeMode: "contain",
-    width: "100%",
-    height: "100%"
+    width: "60%",
+    height: "60%"
   },
   formContainer: {
     padding: 17,
