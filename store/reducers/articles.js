@@ -1,4 +1,4 @@
-import { SET_SUGGESTED_ARTICLE, SET_SELECTED_ARTICLE } from "../actions/articles";
+import { SET_SUGGESTED_ARTICLE, SET_SELECTED_ARTICLE, SET_FOUNDED_ARTICLES } from "../actions/articles";
 
 const initialState = {
   selectedArticle: {
@@ -17,7 +17,8 @@ const initialState = {
       logoUrl: ""
     }
   },
-  suggestedArticles: []
+  suggestedArticles: [],
+  foundedArticles: []
 };
 
 const articlesRecucer = (state = initialState, action) => {
@@ -31,6 +32,11 @@ const articlesRecucer = (state = initialState, action) => {
       return {
         ...state,
         selectedArticle: action.article
+      };
+    case SET_FOUNDED_ARTICLES:
+      return {
+        ...state,
+        foundedArticles: action.articles
       };
     default:
       return state;

@@ -17,7 +17,7 @@ const ArticleGrid = (props) => {
           title={itemData.item.title}
           imageUrl={itemData.item.imageUrl}
           price={itemData.item.price}
-          shopName={itemData.item.shopName}
+          shopName={itemData.item.shopInfos.title}
           onSelect={() => {
             props.selectItem(itemData.item.id);
           }}

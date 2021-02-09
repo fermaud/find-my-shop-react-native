@@ -1,19 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { View, StyleSheet, SafeAreaView, TouchableWithoutFeedback, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import ArticleGrid from "../../components/articles/ArticleGrid";
 import CustomSearchRounded from "../../components/UI/CustomSearchRounded";
 import FiltersList from "../../components/UI/FiltersList";
+import ErrorOccured from "../../components/UI/ErrorOccured";
+import CustomLoader from "../../components/UI/CustomLoader";
+import * as articlesActions from "../../store/actions/articles";
 
 const SearchArticleResultScreen = (props) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [error, setError] = useState();
   const [searchQuery, setSearchQuery] = useState(props.route.params.searchQuery);
+
   const categoryId = props.route.params.categoryId;
   const categoryTitle = props.route.params.categoryTitle;
-
-  const articles = useSelector((state) => state.articles.articles);
-
   const filterList = [
     { id: "f1", title: "Filter", isSelected: false },
     { id: "f2", title: "Taille", isSelected: true },
@@ -22,12 +26,46 @@ const SearchArticleResultScreen = (props) => {
     { id: "f5", title: "Shop", isSelected: false }
   ];
 
+  //////////////////////
+  //  STATE MANAGING  //
+  //////////////////////
+  const articles = useSelector((state) => state.articles.foundedArticles);
+  const dispatch = useDispatch();
+
+  const searchArticles = useCallback(
+    async (filter) => {
+      setError(null);
+      setIsRefreshing(true);
+      try {
+        await dispatch(articlesActions.fetchArticlesByQuery("&filter=" + filter));
+      } catch (err) {
+        console.log(err);
+        setError(err.message);
+      }
+      setIsRefreshing(false);
+    },
+    [dispatch, setIsLoading, setError]
+  );
+
+  useEffect(() => {
+    setIsLoading(true);
+    searchArticles(searchQuery).then(() => {
+      setIsLoading(false);
+    });
+  }, [dispatch, searchArticles]);
+  //////////////////////
+  //  STATE MANAGING  //
+  //////////////////////
+
   const selectArticleHandler = (id) => {
     props.navigation.navigate("ArticleDetails", {
       articleId: id
     });
   };
-
+  if (error) {
+    console.log(error);
+    return <ErrorOccured onPress={searchArticles(searchQuery)} />;
+  }
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.searchContainer}>
@@ -37,7 +75,12 @@ const SearchArticleResultScreen = (props) => {
           </TouchableWithoutFeedback>
         </View>
         <View style={{ flex: 1 }}>
-          <CustomSearchRounded placeholder={categoryId ? 'Recherchez dans "' + categoryTitle + '"' : "Recherchez un article"} value={searchQuery} onChangeText={(text) => setSearchQuery(text)} />
+          <CustomSearchRounded
+            placeholder={categoryId ? 'Recherchez dans "' + categoryTitle + '"' : "Recherchez un article"}
+            value={searchQuery}
+            onChangeText={(text) => setSearchQuery(text)}
+            onStartSearch={() => searchArticles(searchQuery)}
+          />
         </View>
         <View style={{ width: 30, marginLeft: 10 }}>
           <TouchableWithoutFeedback onPress={() => console.log("save search")}>
@@ -54,17 +97,21 @@ const SearchArticleResultScreen = (props) => {
           }}
         />
       </View>
-      <View style={{ flex: 1 }}>
-        <Text style={styles.resultsNbr}>244 résultats</Text>
-        <ArticleGrid
-          numColumns={2}
-          articleStyle={styles.articleThumbStyle}
-          articles={articles}
-          selectItem={(id) => {
-            selectArticleHandler(id);
-          }}
-        />
-      </View>
+      {isLoading || isRefreshing ? (
+        <CustomLoader />
+      ) : (
+        <View style={{ flex: 1 }}>
+          <Text style={styles.resultsNbr}>{articles.length} résultats</Text>
+          <ArticleGrid
+            numColumns={2}
+            articleStyle={styles.articleThumbStyle}
+            articles={articles}
+            selectItem={(id) => {
+              selectArticleHandler(id);
+            }}
+          />
+        </View>
+      )}
     </SafeAreaView>
   );
 };

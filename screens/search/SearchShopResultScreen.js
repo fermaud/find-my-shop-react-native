@@ -15,6 +15,7 @@ const SearchShopResultScreen = (props) => {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [error, setError] = useState();
   const [searchQuery, setSearchQuery] = useState(props.route.params.searchQuery);
+
   const categoryId = props.route.params.categoryId;
   const categoryTitle = props.route.params.categoryTitle;
   const filterList = [
@@ -97,7 +98,7 @@ const SearchShopResultScreen = (props) => {
           }}
         />
       </View>
-      {isLoading ? (
+      {isLoading || isRefreshing ? (
         <CustomLoader />
       ) : (
         <View style={{ flex: 1 }}>

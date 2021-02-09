@@ -4,10 +4,11 @@ import ENV from "../../env";
 
 export const SET_SUGGESTED_ARTICLE = "SET_SUGGESTED_ARTICLE";
 export const SET_SELECTED_ARTICLE = "SET_SELECTED_ARTICLE";
+export const SET_FOUNDED_ARTICLES = "SET_FOUNDED_ARTICLES";
 
 // Requests
 const getArticlesByQuery = (token, query) => {
-  return axios.get(ENV.API_BASE_URL + "algolia-search/ARTICLE?isOnline=true", {
+  return axios.get(ENV.API_BASE_URL + "algolia-search/ARTICLE" + query, {
     headers: {
       Authorization: "JWT " + token
     }
@@ -75,6 +76,29 @@ export const fetchArticleById = (articleId) => {
       const data = response.data.data;
       const article = mapArticle(data);
       dispatch({ type: SET_SELECTED_ARTICLE, article: article });
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
+  };
+};
+
+export const fetchArticlesByQuery = (params) => {
+  return async (dispatch, getState) => {
+    try {
+      const token = getState().auth.token;
+      const response = await getArticlesByQuery(token, "?isOnline=true" + params);
+      if (!response.data.status) {
+        console.log(response.data);
+        throw new Error(response.data.message);
+      }
+      const data = response.data.data;
+      const loadedArticles = [];
+      for (let item of data) {
+        const article = mapArticle(item);
+        loadedArticles.push(article);
+      }
+      dispatch({ type: SET_FOUNDED_ARTICLES, articles: loadedArticles });
     } catch (err) {
       console.log(err);
       throw err;

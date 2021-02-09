@@ -1,17 +1,8 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Platform,
-  TouchableWithoutFeedback,
-  Image,
-  TouchableNativeFeedback,
-} from "react-native";
+import { View, Text, StyleSheet, Platform, TouchableWithoutFeedback, Image, TouchableNativeFeedback } from "react-native";
 
 const ArticleThumb = (props) => {
   let TouchableCmp = TouchableWithoutFeedback;
-
   if (Platform.OS === "android" && Platform.Version >= 21) {
     TouchableCmp = TouchableNativeFeedback;
   }
@@ -25,7 +16,7 @@ const ArticleThumb = (props) => {
           <Text numberOfLines={1} style={styles.title}>
             {props.title}
           </Text>
-          <Text>{props.shopName}</Text>
+          <Text style={{ fontStyle: "italic" }}>{props.shopName}</Text>
           <Text style={styles.price}>{props.price}€</Text>
         </View>
       </View>
@@ -39,19 +30,19 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     height: 210,
     width: 150,
-    marginHorizontal: 4,
+    marginHorizontal: 4
   },
   image: {
     width: "100%",
-    height: "100%",
+    height: "100%"
   },
   details: {
     height: 60,
-    paddingTop: 5,
+    paddingTop: 5
   },
   price: {
-    fontWeight: "bold",
-  },
+    fontWeight: "bold"
+  }
 });
 
 export default ArticleThumb;

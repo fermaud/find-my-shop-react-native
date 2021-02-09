@@ -99,7 +99,6 @@ export const fetchShopsFromLocation = (params) => {
 export const fetchShopsByQuery = (params) => {
   return async (dispatch, getState) => {
     try {
-      console.log("?isOnline=true" + params);
       const token = getState().auth.token;
       const response = await getShopsByQuery(token, "?isOnline=true" + params);
       if (!response.data.status) {
