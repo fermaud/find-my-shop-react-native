@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet, ImageBackground, Image, Text } from "react-native";
 import * as Facebook from "expo-facebook";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import * as authActions from "../../store/actions/auth";
 import SectionTitle from "../../components/UI/SectionTitle";

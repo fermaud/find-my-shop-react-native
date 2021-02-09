@@ -15,6 +15,10 @@ const ArticleDetailsScreen = (props) => {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [error, setError] = useState();
   const articleId = props.route.params.articleId;
+
+  //////////////////////
+  //  STATE MANAGING  //
+  //////////////////////
   const article = useSelector((state) => state.articles.selectedArticle);
   const dispatch = useDispatch();
 
@@ -36,6 +40,9 @@ const ArticleDetailsScreen = (props) => {
       setIsLoading(false);
     });
   }, [dispatch, loadArticle]);
+  //////////////////////
+  //  STATE MANAGING  //
+  //////////////////////
 
   if (error) {
     console.log(error);

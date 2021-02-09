@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  NavigationContainer,
-  DefaultTheme,
-  CommonActions,
-} from "@react-navigation/native";
+import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 
 import { GeneralNavigator, AuthNavigator } from "./ShopNavigator";
@@ -16,14 +12,12 @@ const GeneralTheme = {
     ...DefaultTheme.colors,
     background: "white",
     primary: Colors.primary,
-    border: "#E5E5E5",
-  },
+    border: "#E5E5E5"
+  }
 };
 
 const AppNavigator = (props) => {
   const isAuth = useSelector((state) => !!state.auth.token);
-
-  console.log(useSelector((state) => state.users));
   const didTryAutoLogin = useSelector((state) => state.auth.didTryAutoLogin);
 
   return (

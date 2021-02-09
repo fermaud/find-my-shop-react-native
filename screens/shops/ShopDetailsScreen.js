@@ -12,6 +12,10 @@ const ShopDetailsScreen = (props) => {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [error, setError] = useState();
   const shopId = props.route.params.shopId;
+
+  //////////////////////
+  //  STATE MANAGING  //
+  //////////////////////
   const shop = useSelector((state) => state.shops.selectedShop);
   const dispatch = useDispatch();
 
@@ -32,6 +36,9 @@ const ShopDetailsScreen = (props) => {
       setIsLoading(false);
     });
   }, [dispatch, loadShop]);
+  //////////////////////
+  //  STATE MANAGING  //
+  //////////////////////
 
   if (error) {
     console.log(error);

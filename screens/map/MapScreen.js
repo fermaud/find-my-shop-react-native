@@ -26,14 +26,12 @@ const MapScreen = (props) => {
   const [searchQuery, setSearchQuery] = useState("");
   const latitudeDelta = 0.1;
   const longitudeDelta = 0.1;
-
   const [userLocation, setUserLocation] = useState({
     latitude: 45.7663955,
     longitude: 4.8355592,
     latitudeDelta: latitudeDelta,
     longitudeDelta: longitudeDelta
   });
-
   const [cameraPosition, setCameraPosition] = useState({
     latitude: 45.7663955,
     longitude: 4.8355592,
@@ -41,12 +39,10 @@ const MapScreen = (props) => {
     longitudeDelta: longitudeDelta
   });
 
-  function goToUserPosition() {
-    setCameraPosition(userLocation);
-  }
-
+  //////////////////////
+  //  STATE MANAGING  //
+  //////////////////////
   const shopsToPrint = useSelector((state) => state.shops.shopsOnTheMap);
-
   const dispatch = useDispatch();
 
   // Fonction pour récuperer les éléments
@@ -68,6 +64,13 @@ const MapScreen = (props) => {
       setIsLoading(false);
     });
   }, [dispatch, loadShopsFromLocation]);
+  //////////////////////
+  //  STATE MANAGING  //
+  //////////////////////
+
+  function goToUserPosition() {
+    setCameraPosition(userLocation);
+  }
 
   if (error) {
     console.log(error);

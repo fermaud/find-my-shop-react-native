@@ -1,12 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import {
-  View,
-  ScrollView,
-  StyleSheet,
-  RefreshControl,
-  Button,
-  Text,
-} from "react-native";
+import { View, ScrollView, StyleSheet, RefreshControl } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 
 import ArticleGrid from "../../components/articles/ArticleGrid";
@@ -22,11 +15,12 @@ const FeedScreen = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [error, setError] = useState();
-  const suggestedArticles = useSelector(
-    (state) => state.articles.suggestedArticles
-  );
-  const suggestedShops = useSelector((state) => state.shops.suggestedShops);
 
+  //////////////////////
+  //  STATE MANAGING  //
+  //////////////////////
+  const suggestedArticles = useSelector((state) => state.articles.suggestedArticles);
+  const suggestedShops = useSelector((state) => state.shops.suggestedShops);
   const dispatch = useDispatch();
 
   // Fonction pour récuperer les éléments
@@ -50,16 +44,19 @@ const FeedScreen = (props) => {
       setIsLoading(false);
     });
   }, [dispatch, loadArticlesAndShops]);
+  //////////////////////
+  //  STATE MANAGING  //
+  //////////////////////
 
   const selectArticleHandler = (id) => {
     props.navigation.navigate("ArticleDetails", {
-      articleId: id,
+      articleId: id
     });
   };
 
   const selectShopHandler = (id) => {
     props.navigation.navigate("ShopDetails", {
-      shopId: id,
+      shopId: id
     });
   };
 
@@ -71,19 +68,9 @@ const FeedScreen = (props) => {
     return <CustomLoader />;
   }
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      refreshControl={
-        <RefreshControl
-          onRefresh={loadArticlesAndShops}
-          refreshing={isRefreshing}
-        />
-      }
-    >
+    <ScrollView showsVerticalScrollIndicator={false} refreshControl={<RefreshControl onRefresh={loadArticlesAndShops} refreshing={isRefreshing} />}>
       <View style={styles.screen}>
-        <SectionTitle style={{ marginBottom: 15, marginTop: 15 }}>
-          Articles suggérés pour vous
-        </SectionTitle>
+        <SectionTitle style={{ marginBottom: 15, marginTop: 15 }}>Articles suggérés pour vous</SectionTitle>
         <ArticleGrid
           horizontal={true}
           articles={suggestedArticles}
@@ -91,9 +78,7 @@ const FeedScreen = (props) => {
             selectArticleHandler(id);
           }}
         />
-        <SectionTitle style={{ marginBottom: 15, marginTop: 15 }}>
-          Shop tendances
-        </SectionTitle>
+        <SectionTitle style={{ marginBottom: 15, marginTop: 15 }}>Shop tendances</SectionTitle>
         <ShopGrid
           horizontal={true}
           shops={suggestedShops}
@@ -101,9 +86,7 @@ const FeedScreen = (props) => {
             selectShopHandler(id, coverUrl, logoUrl);
           }}
         />
-        <SectionTitle style={{ marginBottom: 15, marginTop: 15 }}>
-          Articles tendances
-        </SectionTitle>
+        <SectionTitle style={{ marginBottom: 15, marginTop: 15 }}>Articles tendances</SectionTitle>
         <ArticleGrid
           horizontal={true}
           articles={suggestedArticles}
@@ -117,13 +100,13 @@ const FeedScreen = (props) => {
 };
 
 export const screenOptions = {
-  headerTitle: "Fil d'actu",
+  headerTitle: "Fil d'actu"
 };
 
 const styles = StyleSheet.create({
   screen: {
-    marginHorizontal: 10,
-  },
+    marginHorizontal: 10
+  }
 });
 
 export default FeedScreen;

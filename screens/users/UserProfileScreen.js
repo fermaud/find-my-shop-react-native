@@ -1,14 +1,10 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  Image,
-} from "react-native";
+import { View, Text, StyleSheet, TouchableWithoutFeedback, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
+import ErrorOccured from "../../components/UI/ErrorOccured";
+import CustomLoader from "../../components/UI/CustomLoader";
 import Colors from "../../constants/Colors";
 import * as usersActions from "../../store/actions/users";
 
@@ -16,8 +12,11 @@ const UserProfileScreen = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [error, setError] = useState();
-  const connectedUser = useSelector((state) => state.users.connectedUser);
 
+  //////////////////////
+  //  STATE MANAGING  //
+  //////////////////////
+  const connectedUser = useSelector((state) => state.users.connectedUser);
   const dispatch = useDispatch();
 
   // Fonction pour récuperer les infos de l'user
@@ -25,7 +24,7 @@ const UserProfileScreen = (props) => {
     setError(null);
     setIsRefreshing(true);
     try {
-      await dispatch(usersActions.loadConnectedUser());
+      await dispatch(usersActions.fetchConnectedUser());
     } catch (err) {
       setError(err.message);
     }
@@ -39,7 +38,17 @@ const UserProfileScreen = (props) => {
       setIsLoading(false);
     });
   }, [dispatch, loadConnectedUser]);
+  //////////////////////
+  //  STATE MANAGING  //
+  //////////////////////
 
+  if (error) {
+    console.log(error);
+    return <ErrorOccured onPress={loadConnectedUser} />;
+  }
+  if (isLoading) {
+    return <CustomLoader />;
+  }
   return (
     <View style={styles.screen}>
       <View style={styles.headerContainer}>
@@ -49,24 +58,14 @@ const UserProfileScreen = (props) => {
             <Text style={styles.title}>Mon profil</Text>
           </View>
           <View style={{ flex: 1 }}>
-            <TouchableWithoutFeedback
-              onPress={() => props.navigation.navigate("UserParameters")}
-            >
-              <Ionicons
-                style={styles.settingsButton}
-                name="settings-outline"
-                size={33}
-                color="white"
-              />
+            <TouchableWithoutFeedback onPress={() => props.navigation.navigate("UserParameters")}>
+              <Ionicons style={styles.settingsButton} name="settings-outline" size={33} color="white" />
             </TouchableWithoutFeedback>
           </View>
         </View>
       </View>
       <View style={{ flexDirection: "column" }}>
-        <Image
-          style={styles.profilePicture}
-          source={{ uri: connectedUser.imageUrl }}
-        />
+        <Image style={styles.profilePicture} source={{ uri: connectedUser.imageUrl }} />
         <View style={{ backgroundColor: Colors.primary, height: 100 }}></View>
         <View style={{ height: 100 }}></View>
       </View>
@@ -79,31 +78,31 @@ const UserProfileScreen = (props) => {
 
 export const screenOptions = (navData) => {
   return {
-    headerShown: false,
+    headerShown: false
   };
 };
 
 const styles = StyleSheet.create({
   screen: {
-    flex: 1,
+    flex: 1
   },
   headerContainer: {
     paddingTop: 50,
     backgroundColor: Colors.primary,
-    height: 120,
+    height: 120
   },
   titleLogo: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: "row"
   },
   title: {
     color: "white",
     fontWeight: "600",
     fontSize: 30,
-    textAlign: "center",
+    textAlign: "center"
   },
   settingsButton: {
-    alignSelf: "center",
+    alignSelf: "center"
   },
   profilePicture: {
     height: 175,
@@ -115,21 +114,21 @@ const styles = StyleSheet.create({
     position: "absolute",
     shadowOffset: {
       width: 0,
-      height: 0,
+      height: 0
     },
     shadowOpacity: 0.6,
     shadowColor: "grey",
     zIndex: 2,
     marginTop: 12.5,
-    borderRadius: 100,
+    borderRadius: 100
   },
   userName: {
     alignSelf: "center",
     textAlign: "center",
     width: "85%",
     fontSize: 30,
-    fontWeight: "500",
-  },
+    fontWeight: "500"
+  }
 });
 
 export default UserProfileScreen;

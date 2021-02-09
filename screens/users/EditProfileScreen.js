@@ -1,16 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  ScrollView,
-  Image,
-} from "react-native";
+import { View, Text, StyleSheet, TouchableWithoutFeedback, ScrollView, Image } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { Ionicons } from "@expo/vector-icons";
 
+import ErrorOccured from "../../components/UI/ErrorOccured";
+import CustomLoader from "../../components/UI/CustomLoader";
 import SearchPlaceHolderItem from "../../components/UI/SearchPlaceHolderItem";
 import * as usersActions from "../../store/actions/users";
 
@@ -18,8 +13,11 @@ const EditProfileScreen = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [error, setError] = useState();
-  const connectedUser = useSelector((state) => state.users.connectedUser);
 
+  //////////////////////
+  //  STATE MANAGING  //
+  //////////////////////
+  const connectedUser = useSelector((state) => state.users.connectedUser);
   const dispatch = useDispatch();
 
   // Fonction pour récuperer les infos de l'user
@@ -27,7 +25,7 @@ const EditProfileScreen = (props) => {
     setError(null);
     setIsRefreshing(true);
     try {
-      await dispatch(usersActions.loadConnectedUser());
+      await dispatch(usersActions.fetchConnectedUser());
     } catch (err) {
       setError(err.message);
     }
@@ -41,41 +39,36 @@ const EditProfileScreen = (props) => {
       setIsLoading(false);
     });
   }, [dispatch, loadConnectedUser]);
-
-  // const updateConnectedUserProfile = (userData) => {
-  //   try {
-  //     console.log(userData);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+  //////////////////////
+  //  STATE MANAGING  //
+  //////////////////////
 
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4, 3],
-      quality: 1,
+      quality: 1
     });
     if (!result.cancelled) {
-      await dispatch(
-        usersActions.updateConnectedUserProfile({ uri: result.uri })
-      );
+      await dispatch(usersActions.updateConnectedUserProfile({ firstName: "Robin" }));
     }
   };
 
+  if (error) {
+    console.log(error);
+    return <ErrorOccured onPress={loadConnectedUser} />;
+  }
+  if (isLoading) {
+    return <CustomLoader />;
+  }
   return (
     <View style={styles.screen}>
       <View style={styles.headerContainer}>
         <View style={styles.titleLogo}>
           <View style={{ flex: 1 }}>
             <TouchableWithoutFeedback onPress={() => props.navigation.goBack()}>
-              <Ionicons
-                style={styles.settingsButton}
-                name="ios-arrow-back-outline"
-                size={35}
-                color="black"
-              />
+              <Ionicons style={styles.settingsButton} name="ios-arrow-back-outline" size={35} color="black" />
             </TouchableWithoutFeedback>
           </View>
           <View style={{ flex: 4 }}>
@@ -87,16 +80,13 @@ const EditProfileScreen = (props) => {
       <ScrollView style={{ paddingHorizontal: 10, flex: 1 }}>
         <SearchPlaceHolderItem selectItem={pickImage}>
           <View style={{ flexDirection: "row" }}>
-            <Image
-              style={styles.profilePicture}
-              source={{ uri: connectedUser.imageUrl }}
-            />
+            <Image style={styles.profilePicture} source={{ uri: connectedUser.imageUrl }} />
             <View
               style={{
                 paddingVertical: 5,
                 paddingHorizontal: 10,
                 flexDirection: "column",
-                justifyContent: "center",
+                justifyContent: "center"
               }}
             >
               <Text style={{ fontSize: 15 }}>Change ma photo de profil</Text>
@@ -110,30 +100,30 @@ const EditProfileScreen = (props) => {
 
 export const screenOptions = (navData) => {
   return {
-    headerShown: false,
+    headerShown: false
   };
 };
 
 const styles = StyleSheet.create({
   screen: {
-    flex: 1,
+    flex: 1
   },
   headerContainer: {
     paddingTop: 50,
-    height: 100,
+    height: 100
   },
   titleLogo: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: "row"
   },
   title: {
     fontWeight: "600",
     fontSize: 25,
     paddingTop: 3,
-    textAlign: "center",
+    textAlign: "center"
   },
   settingsButton: {
-    alignSelf: "center",
+    alignSelf: "center"
   },
   profilePicture: {
     width: 50,
@@ -143,11 +133,11 @@ const styles = StyleSheet.create({
     borderWidth: 4,
     shadowOffset: {
       width: 0,
-      height: 0,
+      height: 0
     },
     shadowOpacity: 0.4,
-    shadowColor: "grey",
-  },
+    shadowColor: "grey"
+  }
 });
 
 export default EditProfileScreen;
