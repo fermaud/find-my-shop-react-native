@@ -99,6 +99,7 @@ export const fetchShopsFromLocation = (params) => {
 export const fetchShopsByQuery = (params) => {
   return async (dispatch, getState) => {
     try {
+      console.log("?isOnline=true" + params);
       const token = getState().auth.token;
       const response = await getShopsByQuery(token, "?isOnline=true" + params);
       if (!response.data.status) {
@@ -108,10 +109,10 @@ export const fetchShopsByQuery = (params) => {
       const data = response.data.data;
       const loadedShops = [];
       for (let item of data) {
-        const newShop = mapShop(item);
-        loadedShops.push(newShop);
+        const shop = mapShop(item);
+        loadedShops.push(shop);
       }
-      dispatch({ type: SET_SHOPS_ON_THE_MAP, shops: loadedShops });
+      dispatch({ type: SET_FOUNDED_SHOPS, shops: loadedShops });
     } catch (err) {
       console.log(err);
       throw err;

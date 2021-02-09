@@ -1,19 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { View, StyleSheet, SafeAreaView, TouchableWithoutFeedback, FlatList, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import ShopGrid from "../../components/shops/ShopGrid";
 import CustomSearchRounded from "../../components/UI/CustomSearchRounded";
 import FiltersList from "../../components/UI/FiltersList";
+import ErrorOccured from "../../components/UI/ErrorOccured";
+import CustomLoader from "../../components/UI/CustomLoader";
+import * as shopsActions from "../../store/actions/shops";
 
 const SearchShopResultScreen = (props) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [error, setError] = useState();
   const [searchQuery, setSearchQuery] = useState(props.route.params.searchQuery);
   const categoryId = props.route.params.categoryId;
   const categoryTitle = props.route.params.categoryTitle;
-
-  const shops = useSelector((state) => state.shops.shops);
-
   const filterList = [
     { id: "f1", title: "Filter", isSelected: false },
     { id: "f2", title: "Taille", isSelected: true },
@@ -22,12 +25,47 @@ const SearchShopResultScreen = (props) => {
     { id: "f5", title: "Shop", isSelected: false }
   ];
 
+  //////////////////////
+  //  STATE MANAGING  //
+  //////////////////////
+  const shops = useSelector((state) => state.shops.foundedShops);
+  const dispatch = useDispatch();
+
+  const searchShops = useCallback(
+    async (filter) => {
+      setError(null);
+      setIsRefreshing(true);
+      try {
+        await dispatch(shopsActions.fetchShopsByQuery("&filter=" + filter));
+      } catch (err) {
+        console.log(err);
+        setError(err.message);
+      }
+      setIsRefreshing(false);
+    },
+    [dispatch, setIsLoading, setError]
+  );
+
+  useEffect(() => {
+    setIsLoading(true);
+    searchShops(searchQuery).then(() => {
+      setIsLoading(false);
+    });
+  }, [dispatch, searchShops]);
+  //////////////////////
+  //  STATE MANAGING  //
+  //////////////////////
+
   const selectShopHandler = (id) => {
     props.navigation.navigate("ShopDetails", {
       shopId: id
     });
   };
 
+  if (error) {
+    console.log(error);
+    return <ErrorOccured onPress={searchShops(searchQuery)} />;
+  }
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.searchContainer}>
@@ -37,7 +75,12 @@ const SearchShopResultScreen = (props) => {
           </TouchableWithoutFeedback>
         </View>
         <View style={{ flex: 1 }}>
-          <CustomSearchRounded placeholder={categoryId ? 'Recherchez dans "' + categoryTitle + '"' : "Recherchez un shop"} value={searchQuery} onChangeText={(text) => setSearchQuery(text)} />
+          <CustomSearchRounded
+            placeholder={categoryId ? 'Recherchez dans "' + categoryTitle + '"' : "Recherchez un shop"}
+            value={searchQuery}
+            onChangeText={(text) => setSearchQuery(text)}
+            onStartSearch={() => searchShops(searchQuery)}
+          />
         </View>
         <View style={{ width: 30, marginLeft: 10 }}>
           <TouchableWithoutFeedback onPress={() => console.log("save search")}>
@@ -54,16 +97,20 @@ const SearchShopResultScreen = (props) => {
           }}
         />
       </View>
-      <View style={{ flex: 1 }}>
-        <Text style={styles.resultsNbr}>244 résultats</Text>
-        <ShopGrid
-          shopStyle={styles.shopThumbStyle}
-          shops={shops}
-          selectItem={(id) => {
-            selectShopHandler(id);
-          }}
-        />
-      </View>
+      {isLoading ? (
+        <CustomLoader />
+      ) : (
+        <View style={{ flex: 1 }}>
+          <Text style={styles.resultsNbr}>{shops.length} résultats</Text>
+          <ShopGrid
+            shopStyle={styles.shopThumbStyle}
+            shops={shops}
+            selectItem={(id) => {
+              selectShopHandler(id);
+            }}
+          />
+        </View>
+      )}
     </SafeAreaView>
   );
 };

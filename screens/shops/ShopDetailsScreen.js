@@ -4,8 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
 
 import CustomLoader from "../../components/UI/CustomLoader";
-import * as shopsActions from "../../store/actions/shops";
 import ErrorOccured from "../../components/UI/ErrorOccured";
+import * as shopsActions from "../../store/actions/shops";
 
 const ShopDetailsScreen = (props) => {
   const [isLoading, setIsLoading] = useState(true);
